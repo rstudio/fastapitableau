@@ -6,3 +6,6 @@ lint:
 
 test:
 	pipenv run pytest -vv --cov=fastapitableau tests/
+
+serve filename app="app":
+	pipenv run uvicorn {{filename}}:{{app}} --app-dir examples --reload
