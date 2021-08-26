@@ -1,0 +1,27 @@
+venv/
+*.pyc
+.DS_Store
+.coverage
+.vagrant
+/*.egg
+/*.egg-info
+/*.eggs
+/.conda/
+/.idea/
+/.jupyter/
+/.local/
+/.venv/
+/.pipenv-requires
+/build/
+/dist/
+
+# Because we are targeting multiple versions for testing in CI
+Pipfile.lock
+
+# CI
+.coverage
+
+# local environment
+.env
+.envrc
+.tool-versions

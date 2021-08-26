@@ -1,0 +1,8 @@
+[tool.black]
+line-length = 88
+target-version = ['py37']
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+add_imports = "from __future__ import annotations"

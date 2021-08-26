@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+
+[dev-packages]
+black = "*"
+pytest = "*"
+flake8 = "*"
+mkdocs = "*"
+mypy = "*"
+pytest-cov = "*"
+isort = "*"
+pre-commit = "*"
+ipython = "*"
+
+[pipenv]
+allow_prereleases = true
