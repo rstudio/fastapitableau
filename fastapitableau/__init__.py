@@ -1,1 +1,1 @@
-from .fastapitableau import FastAPITableau
+from .applications import FastAPITableau
