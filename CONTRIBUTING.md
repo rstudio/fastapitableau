@@ -17,12 +17,14 @@ I *think* this'll install all the packages *and* dev packages listed in the Pipf
 
 Pipenv will create a virtual environment, which you can start in a sub-shell by running `pipenv shell`.
 
-We also have pre-commit hooks which check (and if possible fix) formatting and a few other things as you commit, so you don't have to wait for CI to fail to see where your formatting is wrong.
+### Pre-commit hooks
 
-You should be able to get set up with these by running the following command in your Pipenv sub-shell.
+This project runs a linter and tests in CI. To avoid getting unpleasant errors *after* you've committed stuff, we also have pre-commit hooks which check (and if possible fix) formatting and a few other things as you commit, so you don't have to wait for CI to fail.
+
+I'm not sure if these will be active when you first clone the repo. If they aren't, you can set them up by running the following command in your Pipenv sub-shell.
 
 ```
 pre-commit install
 ```
 
-Maybe this isn't required? I'm not actually sure if the pre-commit hooks get tracked in the repo.
+If you get an error from `black` or `isort`, the offending file will be modified, so you can just stage the newly-modified file and try the commit again.
