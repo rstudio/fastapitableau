@@ -1,3 +1,4 @@
+exclude: setup.py
 repos:
   - repo: local
     hooks:
@@ -21,13 +22,12 @@ repos:
         language: system
         entry: pipenv run flake8
         types: [python]
-        exclude: setup.py
 
       - id: mypy
         name: mypy
         stages: [commit]
         language: system
-        entry: pipenv run mypy -p flask_tableau
+        entry: pipenv run mypy -p fastapitableau
         types: [python]
         pass_filenames: false
 
