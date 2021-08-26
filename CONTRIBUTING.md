@@ -29,4 +29,4 @@ pre-commit install
 
 If you get an error from `black` or `isort`, the offending file will be modified, so you can just stage the newly-modified file and try the commit again.
 
-You can skip pre-commit hooks by running running `git commit` with the `no-verify` or `-n` option.
+You can skip pre-commit hooks by running running `git commit` with the `no-verify` or `-n` option. Beware, the same things are checked in CI, so you might run into issues down the road.
