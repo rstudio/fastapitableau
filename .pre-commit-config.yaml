@@ -1,8 +1,4 @@
-exclude: >
-  (?x)(
-      ^setup.py|
-      ^scratch/
-  )$
+exclude: setup.py|^scratch/
 repos:
   - repo: local
     hooks:
