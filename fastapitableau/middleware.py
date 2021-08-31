@@ -15,23 +15,23 @@ class TableauExtensionMiddleware:
     async def __call__(self, scope, receive, send) -> None:
         if scope["type"] == "http" and scope["path"] == "/evaluate":
             # If we need to handle larger, multipart requests, this is where we should do so.
-            _scope, _receive = await rewrite_scope_path(scope, receive)
+            _scope, _receive = await self.rewrite_scope_path(scope, receive)
             await self.app(_scope, _receive, send)
         else:
             await self.app(scope, receive, send)
 
+    @staticmethod
+    async def rewrite_scope_path(scope: Dict, receive: Receive) -> Tuple[Dict, Receive]:
+        event = await receive()
+        print(event)
 
-async def rewrite_scope_path(scope: Dict, receive: Receive) -> Tuple[Dict, Receive]:
-    event = await receive()
-    print(event)
+        body = json.loads(event["body"])
+        target_path = body["script"]
 
-    body = json.loads(event["body"])
-    target_path = body["script"]
+        scope["path"] = target_path
+        scope["raw_path"] = bytes(target_path, encoding="utf-8")
 
-    scope["path"] = target_path
-    scope["raw_path"] = bytes(target_path, encoding="utf-8")
+        async def _receive():
+            return event
 
-    async def _receive():
-        return event
-
-    return scope, _receive
+        return scope, _receive
