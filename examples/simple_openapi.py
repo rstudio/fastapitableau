@@ -2,9 +2,6 @@ from typing import List
 
 from fastapitableau import FastAPITableau
 from fastapitableau.utils import replace_dict_keys
-from fastapi.dependencies.utils import get_body_field
-
-from copy import copy
 
 app = FastAPITableau()
 
@@ -45,7 +42,7 @@ for path_name in openapi["paths"].keys():
             "title": schema_name,
             "required": [lowercase_title],
             "type": "object",
-            "properties": {lowercase_title: path_schema}
+            "properties": {lowercase_title: path_schema},
         }
 
         # Replace components with newly created reference schema
@@ -55,7 +52,9 @@ for path_name in openapi["paths"].keys():
         openapi["components"]["schemas"][schema_name] = schema
 
         # Overwrite the path_schema object with the new ref
-        path_schema = path["post"]["requestBody"]["content"]["application/json"]["schema"]
+        path_schema = path["post"]["requestBody"]["content"]["application/json"][
+            "schema"
+        ]
 
     schema_ref = path_schema["$ref"]
     schema_name = schema_ref.split("/")[-1]
@@ -65,15 +64,15 @@ for path_name in openapi["paths"].keys():
 
     schema = openapi["components"]["schemas"][schema_name]
 
-
     # Generate a list of the expected Tableau labels. If it is in `required`, relabel it there, and add it to the list of new keys.
     new_keys = []
     for i, key in enumerate(schema["properties"].keys()):
         new_key_name = "arg" + str(i + 1) + "_"
         new_keys.append(new_key_name)
-        schema["required"] = [x if x != key else new_key_name for x in schema["required"]]
+        schema["required"] = [
+            x if x != key else new_key_name for x in schema["required"]
+        ]
     schema["properties"] = replace_dict_keys(schema["properties"], new_keys)
-
 
     tab_schema = {
         "title": tab_schema_name,
@@ -88,4 +87,3 @@ for path_name in openapi["paths"].keys():
     # Insert the tableau request schema into schemas and change the path schema ref to point to it.
     schemas[tab_schema_name] = tab_schema
     path_schema["$ref"] = tab_schema_ref
-
