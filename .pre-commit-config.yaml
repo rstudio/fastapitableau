@@ -1,4 +1,8 @@
-exclude: setup.py
+exclude: >
+  (?x)^(
+      setup.py|
+      scratch/
+  )$
 repos:
   - repo: local
     hooks:
