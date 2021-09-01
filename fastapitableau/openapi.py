@@ -1,12 +1,20 @@
-from typing import Dict
+from copy import deepcopy
+from typing import Dict, List, Optional
 
 from fastapitableau.utils import replace_dict_keys
 
 
-def rewrite_tableau_openapi(openapi: Dict) -> Dict:
+def rewrite_tableau_openapi(
+    openapi: Dict, rewrite_paths: Optional[List[str]] = None
+) -> Dict:
+    openapi = deepcopy(openapi)
     schemas = openapi["components"]["schemas"]
 
-    for path_name in openapi["paths"].keys():
+    if rewrite_paths is None:
+        rewrite_paths = list(openapi["paths"].keys())
+
+    for path_name in rewrite_paths:
+        print("Rewriting " + path_name)
 
         path = openapi["paths"][path_name]
         path_schema = path["post"]["requestBody"]["content"]["application/json"][

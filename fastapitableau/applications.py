@@ -30,6 +30,11 @@ class FastAPITableau(FastAPI):
                 servers=self.servers,
             )
             # This is where custom openapi modification logic will go
-            openapi_schema = rewrite_tableau_openapi(openapi_schema)
+            tableau_paths = [
+                "/" + route.name
+                for route in self.routes
+                if isinstance(route, TableauRoute)
+            ]
+            openapi_schema = rewrite_tableau_openapi(openapi_schema, tableau_paths)
             self.openapi_schema = openapi_schema
         return self.openapi_schema
