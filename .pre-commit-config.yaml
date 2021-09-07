@@ -1,4 +1,4 @@
-exclude: setup.py
+exclude: setup.py|^scratch/
 repos:
   - repo: local
     hooks:

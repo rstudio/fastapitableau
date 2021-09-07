@@ -3,6 +3,8 @@ from typing import Any, Dict
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 
+from fastapitableau.openapi import rewrite_tableau_openapi
+
 from .middleware import TableauExtensionMiddleware
 from .routing import TableauRoute
 
@@ -28,5 +30,11 @@ class FastAPITableau(FastAPI):
                 servers=self.servers,
             )
             # This is where custom openapi modification logic will go
+            tableau_paths = [
+                "/" + route.name
+                for route in self.routes
+                if isinstance(route, TableauRoute)
+            ]
+            openapi_schema = rewrite_tableau_openapi(openapi_schema, tableau_paths)
             self.openapi_schema = openapi_schema
         return self.openapi_schema
