@@ -1,7 +1,6 @@
 from typing import Any, Dict
 
 from fastapi import FastAPI
-from fastapi.openapi.utils import get_openapi
 
 from fastapitableau.openapi import rewrite_tableau_openapi
 
@@ -17,19 +16,7 @@ class FastAPITableau(FastAPI):
 
     def openapi(self) -> Dict[str, Any]:
         if not self.openapi_schema:
-            openapi_schema = get_openapi(
-                title=self.title,
-                version=self.version,
-                openapi_version=self.openapi_version,
-                description=self.description,
-                terms_of_service=self.terms_of_service,
-                contact=self.contact,
-                license_info=self.license_info,
-                routes=self.routes,
-                tags=self.openapi_tags,
-                servers=self.servers,
-            )
-            # This is where custom openapi modification logic will go
+            openapi_schema = super().openapi()
             tableau_paths = [
                 "/" + route.name
                 for route in self.routes
