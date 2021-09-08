@@ -3,6 +3,7 @@ from typing import Any, Dict
 from fastapi import FastAPI
 
 from fastapitableau.openapi import rewrite_tableau_openapi
+from fastapitableau.pages import statics, built_in_pages
 
 from .middleware import TableauExtensionMiddleware
 from .routing import TableauRoute
@@ -13,6 +14,8 @@ class FastAPITableau(FastAPI):
         super().__init__()
         self.add_middleware(TableauExtensionMiddleware)
         self.router.route_class = TableauRoute
+        self.mount("/static", statics, name="static")
+        self.include_router(built_in_pages)
 
     def openapi(self) -> Dict[str, Any]:
         if not self.openapi_schema:

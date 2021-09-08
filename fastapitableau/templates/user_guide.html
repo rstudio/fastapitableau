@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; child-src 'none';">
+  <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>{{ title }} {% if version %}v{{ version }}{% endif %}</h1>
+      {% if desc %}
+        <div class="api-desc">{{ desc }}</div>
+      {% endif %}
+    </header>
+    <main>
+      <div class="routes">
+
+{% for path, func in routes.items() %}
+  <div class="route">
+
+    <h3 id="{{ path }}" class="path">
+      {{ path }}
+      <a class="permalink" href="#{{ path|urlencode }}">#</a>
+    </h3>
+
+    {% if func.summary %}
+      <h4>{{ func.summary }}</h4>
+    {% endif %}
+
+    {% if func.desc %}
+      <div>{{ func.desc }}</div>
+    {% endif %}
+
+    <div class="usage">
+      <h4>Usage</h4>
+      <code>{{ func.usage }}</code>
+    </div>
+
+    {% if func.args %}
+      <div class="args">
+        <h4>Arguments</h4>
+        <table class="items">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          {% for arg in func.args %}
+          <tr>
+            <td class="item-name">{{ arg.name }}</td>
+            <td class="item-type">{{ arg.type|default("(Not specified)", true) }}</td>
+            <td class="item-desc">
+              {% if arg.optional %}(Optional){% endif %}
+              {{ arg.desc }}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+
+    {% if func.returns and func.returns.desc %}
+      <div class="return">
+        <h4>Return value</h4>
+        <table class="items">
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td class="item-type">{{ func.returns.type|default("(Not specified)", true) }}</td>
+            <td class="item-desc">{{ func.returns.desc }}</td>
+          </tr>
+        </table>
+      </div>
+    {% endif %}
+
+  </div>
+
+{% endfor %}
+
+        
+      </div>
+    </main>
+  </div>
+</body>
+</html>
