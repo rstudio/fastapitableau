@@ -7,7 +7,7 @@ from starlette.templating import Jinja2Templates
 import fastapitableau.templates
 
 try:
-    from importlib.resources import files
+    from importlib.resources import files  # type: ignore[attr-defined]
 except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     from importlib_resources import files  # type: ignore[import, no-redef]
