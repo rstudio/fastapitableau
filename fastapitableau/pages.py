@@ -7,20 +7,20 @@ from starlette.templating import Jinja2Templates
 import fastapitableau.templates
 
 try:
-    import importlib.resources as resources
+    from importlib.resources import files
 except ImportError:
     # Try backported to PY<37 `importlib_resources`.
-    import importlib_resources as resources  # type: ignore[import, no-redef]
+    from importlib_resources import files  # type: ignore[import, no-redef]
 
 
 def markdown_filter(text):
     return commonmark(text)
 
 
-template_dir = resources.files(fastapitableau.templates)
+template_files = files(fastapitableau.templates)
 
 statics = StaticFiles(packages=["fastapitableau"])
-templates = Jinja2Templates(directory=template_dir)  # type: ignore[arg-type]
+templates = Jinja2Templates(directory=template_files)  # type: ignore[arg-type]
 templates.env.filters["markdown"] = markdown_filter
 
 built_in_pages = APIRouter()
