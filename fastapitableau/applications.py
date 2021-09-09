@@ -3,15 +3,15 @@ from typing import Any, Dict
 from fastapi import FastAPI
 
 from fastapitableau.openapi import rewrite_tableau_openapi
-from fastapitableau.pages import statics, built_in_pages
+from fastapitableau.pages import built_in_pages, statics
 
 from .middleware import TableauExtensionMiddleware
 from .routing import TableauRoute
 
 
 class FastAPITableau(FastAPI):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.add_middleware(TableauExtensionMiddleware)
         self.router.route_class = TableauRoute
         self.mount("/static", statics, name="static")
