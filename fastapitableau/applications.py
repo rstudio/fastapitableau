@@ -42,11 +42,5 @@ def info(request: Request):
         # "state_path": "e:\\dev\\server\\server\\server",
         "server_version": "0.0.1",
         "name": "Server",  # TODO: Make this use the application name
-        "versions": {
-            "v1": {
-                "features": {
-                    "authentication": {"required": True, "methods": {"basic-auth": {}}}
-                }
-            }
-        },
+        "versions": {"v1": {"features": {}}},
     }
