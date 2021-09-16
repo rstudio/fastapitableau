@@ -1,9 +1,15 @@
 # FastAPITableau
 
-*🚧 This package is under construction 🚧*
+FastAPITableau lets you call external Python code from Tableau workbooks via [Tableau Analytics
+Extensions](https://tableau.github.io/analytics-extensions-api/). To do this, you write an API using [FastAPI](https://fastapi.tiangolo.com), with some minor modifications. If you aren't already familiar with FastAPI, we suggest you start with their [tutorial](https://fastapi.tiangolo.com/tutorial/). 
 
-A Python package for writing FastAPI apps that you can call from Tableau.
+The main change required for your API to be callable from Tableau is to replace the `FastAPI` app class with `FastAPITableau`. Where a FastAPI file might start with the 
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details on getting set up.
+```python
+-from fastapi import FastAPI
++from fastapitableau import FastAPITableau
 
-We have a justfile with some useful commands.
+-app = FastAPI()
++app = FastAPITableau()
+``` 
+
