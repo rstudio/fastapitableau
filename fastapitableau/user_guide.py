@@ -54,6 +54,8 @@ class RouteInfo:
     def __init__(self, route, app_base_url: Optional[str]):
         if app_base_url:
             # Displays the path relative to the Connect domain, for Tableau purposes.
+            if app_base_url[-1] != "/":
+                app_base_url += "/"
             self.path = urljoin(urlparse(app_base_url).path, route.path.strip("/"))
         else:
             self.path = route.path
