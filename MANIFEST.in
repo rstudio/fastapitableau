@@ -1,0 +1,2 @@
+recursive-include fastapitableau *.html
+recursive-include fastapitableau *.css
