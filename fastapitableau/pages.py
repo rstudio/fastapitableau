@@ -1,29 +1,22 @@
 from commonmark import commonmark  # type: ignore[import]
 from fastapi import Request
 from fastapi.routing import APIRouter
+from pkg_resources import resource_filename
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from fastapitableau import rstudio_connect
 from fastapitableau.user_guide import extract_routes_info
 
-from . import templates
-
-try:
-    from importlib.resources import files  # type: ignore[attr-defined]
-except ImportError:
-    # Try backported to PY<37 `importlib_resources`.
-    from importlib_resources import files  # type: ignore[import, no-redef]
-
 
 def markdown_filter(text):
     return commonmark(text)
 
 
-template_files = files(templates)
+templates_directory = resource_filename("fastapitableau", "templates")
 
 statics = StaticFiles(packages=["fastapitableau"])
-jinja_templates = Jinja2Templates(directory=template_files)  # type: ignore[arg-type]
+jinja_templates = Jinja2Templates(directory=templates_directory)
 jinja_templates.env.filters["markdown"] = markdown_filter
 
 built_in_pages = APIRouter()
