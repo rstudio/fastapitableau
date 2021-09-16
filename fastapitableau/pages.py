@@ -5,6 +5,8 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 import fastapitableau.templates
+from fastapitableau import rstudio_connect
+from fastapitableau.user_guide import extract_routes_info
 
 try:
     from importlib.resources import files  # type: ignore[attr-defined]
@@ -28,7 +30,12 @@ built_in_pages = APIRouter()
 
 @built_in_pages.get("/")
 async def home(request: Request):
-    context = {"request": request}
+    routes_info = extract_routes_info(request.app)
+    context = {
+        "request": request,
+        "warning_message": rstudio_connect.warning_message(),
+        "routes_info": routes_info,
+    }
     return templates.TemplateResponse("index.html", context=context)
 
 

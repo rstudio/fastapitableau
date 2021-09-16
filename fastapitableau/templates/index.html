@@ -98,7 +98,15 @@
 </div>
 </header>
 <main>
-  {{ "body_content" }}
+  <div class="padded-flat-top">
+    {% if warning_message %}
+      {{ warning_message|markdown|safe }}
+    {% else %}
+      {% with routes = routes_info %}
+        {% include "user_guide.html" %}
+      {% endwith %}
+    {% endif %}
+  </div>
 </main>
 </div>
 </body>
