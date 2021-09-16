@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from inspect import Signature, signature
 from typing import Any, List
 
+from fastapitableau.utils import remove_prefix
+
 
 @dataclass
 class ParamInfo:
@@ -31,7 +33,7 @@ class ReturnInfo:
             if sig.return_annotation is not Signature.empty
             else None
         )
-        self.type = str(return_annotation).removeprefix("typing.")
+        self.type = remove_prefix(str(return_annotation), "typing.")
         self.desc = (
             route.response_description
             if route.response_description != "Successful Response"

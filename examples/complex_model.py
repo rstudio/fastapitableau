@@ -17,7 +17,7 @@ app = FastAPITableau(
     summary="Capitalize a list of strings",
     description="Capitalize each item in a list of strings",
 )
-def capitalize(text: List[str]) -> List[int]:
+def capitalize(text: List[str]) -> List[str]:
     capitalized = [t.upper() for t in text]
     return capitalized
 
