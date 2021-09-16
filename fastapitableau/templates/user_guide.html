@@ -54,7 +54,7 @@
         {% for param in route.body_params %}
         <tr>
           <td class="item-name">{{ param.name }}</td>
-          <td class="item-type">{{ param.type|default("(Not specified)", true) }}</td>
+          <td class="item-type">{{ param.tableau_type|default("(Not specified)", true) }}</td>
           <td class="item-desc">
             {% if param.required %}(Required){% endif %}
             {{ param.description }}
