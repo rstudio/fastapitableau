@@ -21,7 +21,7 @@ def paste(first: List[str], second: List[str]) -> List[str]:
     return result
 
 
-# @app.post("/sum")
-# def sum(numbers: List[float]) -> List[float]:
-#     summed = sum(numbers)
-#     return summed
+@app.post("/sum")
+def sum(numbers: List[float]) -> List[float]:
+    summed = sum(numbers)
+    return summed
