@@ -1,0 +1,94 @@
+{# <!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; child-src 'none';">
+  <link rel="stylesheet" type="text/css" href="static/css/styles.css"/>
+</head>
+<body> #}
+  {# <div class="container"> #}
+{#     <header>
+      <h1>
+        {{ request.app.title }} {% if request.app.version %}v{{ request.app.version }}{% endif %}
+      </h1>
+      {% if request.app.description %}
+        <div class="api-desc padded-flat-top">
+            {{ request.app.description|markdown|safe }}
+        </div>
+      {% endif %}
+    </header> #}
+    {# <main> #}
+
+
+<div class="routes">
+
+{% for route in routes %}
+  <div class="route">
+
+    <h3 id="{{ path }}" class="path">
+      {{ route.path }}
+      <a class="permalink" href="#{{ path|urlencode }}">#</a>
+    </h3>
+
+    {% if route.summary %}
+      <h4>{{ route.summary }}</h4>
+    {% endif %}
+
+    {% if route.description %}
+      <div>{{ route.description|markdown|safe }}</div>
+    {% endif %}
+
+    <div class="usage">
+      <h4>Usage</h4>
+      <code>{{ route.usage }}</code>
+    </div>
+
+
+    <div class="args">
+      <h4>Arguments</h4>
+      <table class="items">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        {% for param in route.body_params %}
+        <tr>
+          <td class="item-name">{{ param.name }}</td>
+          <td class="item-type">{{ param.tableau_type|default("(Not specified)", true) }}</td>
+          <td class="item-desc">
+            {% if param.required %}(Required){% endif %}
+            {{ param.description }}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    </div>
+
+
+    {% if route.return and route.returns.description %}
+      <div class="return">
+        <h4>Return value</h4>
+        <table class="items">
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td class="item-type">{{ route.returns.type|default("(Not specified)", true) }}</td>
+            <td class="item-desc">{{ route.returns.description }}</td>
+          </tr>
+        </table>
+      </div>
+
+  </div>
+
+{% endif %}
+{% endfor %}
+
+        
+      </div>
+    {# </main> #}
+  {# </div> #}
+{# </body> #}
+{# </html> #}

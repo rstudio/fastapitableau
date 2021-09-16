@@ -7,6 +7,9 @@ name = "pypi"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 fastapitableau = {editable = true, path = "."}
+aiofiles = "*"
+commonmark = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
