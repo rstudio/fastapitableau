@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from inspect import Signature, signature
-from typing import Any, List
+from typing import Any, List, Optional
+from urllib.parse import urljoin, urlparse
 
 from fastapitableau.utils import remove_prefix
 
@@ -50,8 +51,12 @@ class RouteInfo:
     body_params: List[ParamInfo]
     return_info: ReturnInfo
 
-    def __init__(self, route):
-        self.path = route.path
+    def __init__(self, route, app_base_url: Optional[str]):
+        if app_base_url:
+            # Displays the path relative to the Connect domain, for Tableau purposes.
+            self.path = urljoin(urlparse(app_base_url).path, route.path.strip("/"))
+        else:
+            self.path = route.path
         self.description = route.description
         self.summary = route.summary
         self.body_params = [ParamInfo(param) for param in route.dependant.body_params]
@@ -77,9 +82,9 @@ class RouteInfo:
         return f'{tableau_func}("{self.path}", {params})'
 
 
-def extract_routes_info(app):
+def extract_routes_info(app, app_base_url: Optional[str]):
     routes_info = [
-        RouteInfo(route)
+        RouteInfo(route, app_base_url)
         for route in app.routes
         if "TableauRoute" in route.__class__.__name__
     ]

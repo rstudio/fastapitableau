@@ -39,7 +39,7 @@ def capitalize(text: List[str]) -> List[str]:
 
 If you put this code in a file named `simple.py` in your terminal's working directory, you can serve it locally using [Uvicorn](https://www.uvicorn.org), by invoking `uvicorn simple:app --reload`.
 
-You can add additional metadata to endpoints as you would with a regular Tableau extension, in the endpoint decorator and the docstring.
+You can add additional metadata to endpoints as you would with a regular FastAPI app, in the endpoint decorator and the docstring.
 
 ```python
 @app.post(
