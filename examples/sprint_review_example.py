@@ -3,16 +3,15 @@ from typing import List
 from fastapitableau import FastAPITableau
 
 app = FastAPITableau(
-    title="Simple Example",
-    description="A *simple* example FastAPITableau app.",
+    title="A Simple Example for Tableau",
+    description="A *very* simple example FastAPITableau app.",
     version="0.1.0",
 )
 
 
-@app.post("/capitalize")
-def capitalize(text: List[str]) -> List[str]:
-    capitalized = [t.upper() for t in text]
-    return capitalized
+@app.post("/add_5")
+def add_5(input: List[float]) -> List[float]:
+    return [x + 5 for x in input]
 
 
 @app.post("/paste")

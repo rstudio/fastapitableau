@@ -15,3 +15,9 @@ def capitalize(text: List[str]) -> List[str]:
 def paste(first: List[str], second: List[str]) -> List[str]:
     result = [a + " " + b for a, b in zip(first, second)]
     return result
+
+
+@app.post("/sum")
+def sum(numbers: List[float]) -> List[float]:
+    summed = sum(numbers)
+    return summed
