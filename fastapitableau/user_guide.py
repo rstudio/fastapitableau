@@ -52,7 +52,7 @@ class RouteInfo:
         self.summary = route.summary
         self.body_params = [ParamInfo(param) for param in route.dependant.body_params]
         self.return_info = ReturnInfo(route)
-        self.usage = "USAGE TKTKTKTK Lorem Ipsum blah blah"  # TODO
+        self.usage = "[tableau usage example TK]"  # TODO
 
 
 def extract_routes_info(app):

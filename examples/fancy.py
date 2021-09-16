@@ -26,7 +26,7 @@ def capitalize(text: List[str]) -> List[str]:
 )
 def paste(first: List[str], second: List[str]) -> List[str]:
     """
-    "Given two lists of strings, iterate over them, concatenating parallel items."
+    Given two lists of strings, iterate over them, concatenating parallel items.
 
     - **first**: the first list of strings
     - **second**: the second list of strings

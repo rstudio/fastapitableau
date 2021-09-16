@@ -34,7 +34,7 @@ class FastAPITableau(FastAPI):
 info_router = APIRouter()
 
 
-@info_router.get("/info")
+@info_router.get("/info", include_in_schema=False)
 def info(request: Request):
     return {
         "description": "FastAPITableau API",

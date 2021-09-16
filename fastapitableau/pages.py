@@ -22,7 +22,7 @@ jinja_templates.env.filters["markdown"] = markdown_filter
 built_in_pages = APIRouter()
 
 
-@built_in_pages.get("/")
+@built_in_pages.get("/", include_in_schema=False)
 async def home(request: Request):
     routes_info = extract_routes_info(request.app)
     context = {
@@ -33,7 +33,7 @@ async def home(request: Request):
     return jinja_templates.TemplateResponse("index.html", context=context)
 
 
-@built_in_pages.get("/user_guide")
+@built_in_pages.get("/user_guide", include_in_schema=False)
 async def user_guide(request: Request):
     routes = request.app.routes
     context = {"title": request.app.title, "routes": routes, "request": request}
