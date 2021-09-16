@@ -62,9 +62,11 @@ This metadata will appear in the documentation for Tableau users.
 
 You can deploy FastAPITableau extensions to RStudio Connect with `rsconnect-python`. Detailed documentation can be found [over there](https://github.com/rstudio/rsconnect-python#deploying-python-content-to-rstudio-connect).
 
-rsconnect-python assumes that your API is the only Python in its directory. For best results, specify your API's dependencies in a `requirements.txt` file in the same directory. See more information [here](https://github.com/rstudio/rsconnect-python#package-dependencies-1).
-
+```bash
 rsconnect deploy fastapi \
     --server https://connect.example.org:3939 \
     --api-key my-api-key \
     my_api_directory/
+```
+
+rsconnect-python assumes that your API is the only Python in its directory. For best results, specify your API's dependencies in a `requirements.txt` file in the same directory. See more information [here](https://github.com/rstudio/rsconnect-python#package-dependencies-1).
