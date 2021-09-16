@@ -15,7 +15,7 @@ The main change required for your API to be callable from Tableau is to replace 
 
 When you do this, FastAPITableau will correctly route and transform requests from Tableau, which arrive at the `/evaluate` endpoint, to endpoints you define in your app. It will also show documentation for Tableau users at the root of your API, with copy-and-paste code samples for Tableau calls.
 
-**Before you write an extenssion with FastAPITableau, you should be familiar with [FastAPI](https://fastapi.tiangolo.com). The [Tutorial](https://fastapi.tiangolo.com/tutorial/) is a great place to start.**
+**Before you write an extension with FastAPITableau, you should be familiar with [FastAPI](https://fastapi.tiangolo.com). The [Tutorial](https://fastapi.tiangolo.com/tutorial/) is a great place to start.**
 
 ## A simple FastAPITableau extension
 
