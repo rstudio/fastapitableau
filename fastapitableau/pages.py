@@ -4,8 +4,10 @@ from fastapi.routing import APIRouter
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-from fastapitableau import rstudio_connect, templates
+from fastapitableau import rstudio_connect
 from fastapitableau.user_guide import extract_routes_info
+
+from . import templates
 
 try:
     from importlib.resources import files  # type: ignore[attr-defined]
