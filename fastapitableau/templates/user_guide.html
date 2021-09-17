@@ -41,28 +41,16 @@
       <h4>Usage</h4>
       <code>{{ route.usage }}</code>
     </div>
-
-
-    <div class="args">
-      <h4>Arguments</h4>
-      <table class="items">
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        {% for param in route.body_params %}
-        <tr>
-          <td class="item-name">{{ param.name }}</td>
-          <td class="item-type">{{ param.tableau_type|default("(Not specified)", true) }}</td>
-          <td class="item-desc">
-            {% if param.required %}(Required){% endif %}
-            {{ param.description }}
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
-    </div>
+    <!-- Body params -->
+    {% with name = "Arguments", description = "Pass these to your Tableau calculation after the script path in the listed order.", params = route.body_params, ordered = True %}
+      {% include "param_table.html" %}
+    {% endwith %}
+    <!-- Query params -->
+    {% if route.query_params %}
+      {% with name = "Query Parameters", description = "Query parameters are placed after the script path, preceded by `?` and separated by `&`, as in `/path?param1=green&param2=42`.", params = route.query_params %}
+        {% include "param_table.html" %}
+      {% endwith %}
+    {% endif %}
     </div>
 
 

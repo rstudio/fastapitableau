@@ -24,7 +24,10 @@ built_in_pages = APIRouter()
 
 @built_in_pages.get("/", include_in_schema=False)
 async def home(request: Request):
-    routes_info = extract_routes_info(request.app)
+    routes_info = extract_routes_info(
+        app=request.app,
+        app_base_url=request.headers.get("RStudio-Connect-App-Base-URL"),
+    )
     context = {
         "request": request,
         "warning_message": rstudio_connect.warning_message(),

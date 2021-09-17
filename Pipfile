@@ -21,6 +21,7 @@ pytest-cov = "*"
 isort = "*"
 pre-commit = "*"
 ipython = "*"
+pytest-subtests = "*"
 
 [pipenv]
 allow_prereleases = true

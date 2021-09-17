@@ -73,11 +73,11 @@ td.item-name {
 }
 
 td.item-type {
-  width: 15%;
+  width: 25%;
 }
 
 td.item-desc {
-  width: 60%;
+  width: 50%;
 }
 
 a.permalink {
