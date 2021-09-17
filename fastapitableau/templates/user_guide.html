@@ -47,7 +47,7 @@
     {% endwith %}
     <!-- Query params -->
     {% if route.query_params %}
-      {% with name = "Query Parameters", description = "Place these at the end of the script path, separated by `&`, as in `param1=green&param2=42`.", params = route.query_params %}
+      {% with name = "Query Parameters", description = "Query parameters are placed after the script path, preceded by `?` and separated by `&`, as in `/path?param1=green&param2=42`.", params = route.query_params %}
         {% include "param_table.html" %}
       {% endwith %}
     {% endif %}
