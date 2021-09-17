@@ -21,6 +21,7 @@ class FastAPITableau(FastAPI):
     def openapi(self) -> Dict[str, Any]:
         if not self.openapi_schema:
             openapi_schema = super().openapi()
+            self.original_openapi_schema = openapi_schema
             tableau_paths = [
                 "/" + route.name
                 for route in self.routes

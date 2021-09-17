@@ -13,13 +13,22 @@ class ParamInfo:
     tableau_type: str
     required: bool
     default: Any
+    details: str
 
     def __init__(self, param):
         self.name = param.name
         self.type = param._type_display()
-        self.tableau_type = tableau_type_for_python_type(self.type)
+        self.tableau_type = tableau_name_for_python_type(self.type)
         self.required = param.required
         self.default = param.default
+        self.details = self._details()
+
+    def _details(self) -> str:
+        parts = []
+        parts.append("required") if self.required else parts.append("optional")
+        if self.default is not None:
+            parts.append(f"default = {self.default}")
+        return "; ".join(parts).capitalize()
 
 
 @dataclass
@@ -49,6 +58,7 @@ class RouteInfo:
     summary: str
     description: str
     body_params: List[ParamInfo]
+    query_params: List[ParamInfo]
     return_info: ReturnInfo
 
     def __init__(self, route, app_base_url: Optional[str]):
@@ -62,6 +72,7 @@ class RouteInfo:
         self.description = route.description
         self.summary = route.summary
         self.body_params = [ParamInfo(param) for param in route.dependant.body_params]
+        self.query_params = [ParamInfo(param) for param in route.dependant.query_params]
         self.return_info = ReturnInfo(route)
         self.usage = self._tableau_usage_str()
 
@@ -93,17 +104,18 @@ def extract_routes_info(app, app_base_url: Optional[str]):
     return routes_info
 
 
-def tableau_type_for_python_type(python_type: str) -> str:
-    tableau_types = {
-        "List[bool]": "bool",
-        "List[str]": "str",
-        "List[int]": "int",
-        "List[float]": "real",
-        "": "string",
-    }
-
-    if python_type not in tableau_types.keys():
-        raise TypeError("Unexpected type: %s" % (python_type))
+def tableau_name_for_python_type(python_type: str) -> str:
+    if "bool" in python_type:
+        tableau_type = "Boolean"
+    elif "str" in python_type:
+        tableau_type = "String"
+    elif "int" in python_type:
+        tableau_type = "Integer (whole number)"
+    elif "float" in python_type:
+        tableau_type = "Real (decimal number)"
+    elif python_type == "":
+        tableau_type = "String"
     else:
-        tableau_type = tableau_types[python_type]
+        raise TypeError("Unexpected type: %s" % (python_type))
+
     return tableau_type

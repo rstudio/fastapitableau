@@ -1,0 +1,24 @@
+    <div class="args">
+      <h4>{{ name }}</h4>
+      <p>{{ description|markdown|safe }}</p>
+      <table class="items">
+        <tr>
+          {% if ordered %}
+            <th></th>
+          {% endif %}
+          <th>Name</th>
+          <th>Type</th>
+          <th>Details</th>
+        </tr>
+        {% for param in params %}
+        <tr>
+          {% if ordered %}
+            <td>{{ loop.index }}.</td>
+          {% endif %}
+          <td class="item-name">{{ param.name }}</td>
+          <td class="item-type">{{ param.tableau_type|default("(Not specified)", true) }}</td>
+          <td class="item-desc">{{ param.details }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
