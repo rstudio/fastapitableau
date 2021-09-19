@@ -10,7 +10,7 @@ You can run the following to install Pipenv and set up this project's dependenci
 
 ```
 pip install pipenv
-pipenv install
+pipenv install --dev
 ```
 
 I *think* this'll install all the packages *and* dev packages listed in the Pipfile. We aren't committing Pipfile.lock because we want to be able to use this environment with different version of Python. You can create a virtualenv with a specific version with a command like `pipenv --python 3.7`.
