@@ -1,7 +1,7 @@
-    <div class="args">
+    <div class="orig-route-args">
       <h4>{{ name }}</h4>
       <p>{{ description|markdown|safe }}</p>
-      <table class="items">
+      <table class="orig-items">
         <tr>
           {% if ordered %}
             <th></th>
@@ -15,9 +15,9 @@
           {% if ordered %}
             <td>{{ loop.index }}.</td>
           {% endif %}
-          <td class="item-name">{{ param.name }}</td>
-          <td class="item-type">{{ param.tableau_type|default("(Not specified)", true) }}</td>
-          <td class="item-desc">{{ param.details }}</td>
+          <td class="orig-item-name">{{ param.name }}</td>
+          <td class="orig-item-type">{{ param.tableau_type|default("(Not specified)", true) }}</td>
+          <td class="orig-item-desc">{{ param.details }}</td>
         </tr>
         {% endfor %}
       </table>

@@ -1,38 +1,67 @@
 <!DOCTYPE html><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-
   <title>Tableau Extension Endpoint</title>
-  <link rel="stylesheet" href="../statics/css/home.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/new_styles.css">
+  <link rel="stylesheet" href="static/css/home.min.css">
   
 </head>
 <body>
+  <header class="md-header" data-md-component="header" data-md-state="shadow">
+    <nav class="md-header__inner md-grid" aria-label="Header">
+      <a href="/">
+        <label class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 113.97"><path d="M18.69,73.37,59.18,32.86c2.14-2.14,2.41-2.23,4.63,0l40.38,40.51V114h-30V86.55a3.38,3.38,0,0,0-3.37-3.37H52.08a3.38,3.38,0,0,0-3.37,3.37V114h-30V73.37ZM60.17.88,0,57.38l14.84,7.79,42.5-42.86c3.64-3.66,3.68-3.74,7.29-.16l43.41,43,14.84-7.79L62.62.79c-1.08-1-1.24-1.13-2.45.09Z"></path></svg>
+        </label>
+      </a>
+      <div class="md-header__title" data-md-component="header-title">
+        <div class="md-header__ellipsis">
+          <div class="md-header__topic">
+            <span class="md-ellipsis">
+              Tableau Extension Endpoint - Home
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
   <div class="md-container">
     <main class="md-main">
       <div class="md-main__inner md-grid">
         <div class="md-content">
-          <article class="md-content__inner md-typeset">   
-            {% if connect_active %}
-              <h1>Tableau Extension Endpoint hosted by RStudio Connect</h1>
-            {% else %}
-              <h1>Tableau Extension Endpoint</h1>
+          <article class="md-content__inner md-typeset" style="margin-top: -2rem !important;">   
+            <h1 style="font-size: 37px; letter-spacing: normal;">
+              {{ request.app.title }} 
+              {% if request.app.version %}
+              <div class="small-button" style="line-height: 1.4; margin-left: -5px;">
+                <div class="version">
+                  {{ request.app.version }}
+                </div>
+              </div>
+              {% endif %}
+            </h1>
+            {% if request.app.description %}
+              <div class="orig-api-desc">
+                  {{ request.app.description|markdown|safe }}
+              </div>
             {% endif %}
             {% if warning_message %}
               <div class="md-header">
-                Stuff is wrong!
                 {{ warning_message|markdown|safe }}
               </div>
             {% endif %}
-            <h2 class="divider">Accessing {{ app.name }}</h2>  
+            <h2 class="divider" style="margin-top: 2rem;">Accessing Functionality</h2>  
             <h4 class="divider" style="color:var(--md-default-fg-color--light)">
-              Need to understand how to use the functionality provided by this endpoint from within Tableau? Or perhaps you want to access the APIs directly? You can do that with the following resources. 
+              Need to understand how to use the functionality provided by this endpoint from within Tableau?
+              Or perhaps you want to access the APIs directly?
+              You can do that with the following resources. 
             </h4>           
             <ul class="feature-list">
-              <li class="item" style="margin-bottom:30px;width:200px;height:250px;">
+              <li class="item" style="margin-bottom:30px;">
                 <a href="/tableau_usage" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="../statics/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="static/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>How to Use from within Tableau</h3>
                       <h4>View detailed instructions on how to use the functionality.</h4>
                     </div>
@@ -48,10 +77,10 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="/docs_tableau" class="feature-btn aligner">
+                <a href="/docs_tableau_openAPI" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="../statics/images/connection-hosting.svg" alt="Tableau API icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="static/images/connection-hosting.svg" alt="Tableau API icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Tableau Style API Requests</h3>
                       <h4>View the OpenAPI Docs for the API that Tableau will use.</h4>
                     </div>
@@ -68,10 +97,10 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="/docs" class="feature-btn aligner">
+                <a href="/docs_openAPI" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="../statics/images/api.svg" alt="API icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="static/images/api.svg" alt="API icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Standard Style Web Requests</h3>
                       <h4>View the OpenAPI Docs for the API made available by this app.</h4>
                     </div>
@@ -91,21 +120,23 @@
             </ul>  
             <h2 class="divider">Additional Resources</h2>  
             <h4 class="divider" style="color:var(--md-default-fg-color--light)">
-              If you need to setup Tableau to access this server, understand how RStudio Connect's Tableau Integration works or further explore the FastAPI Tableau library, the following resources will help. 
+              If you need to setup Tableau to access this server, understand
+              how RStudio Connect's Tableau Integration works or further explore
+              the FastAPI Tableau library, the following resources will help. 
             </h4>      
             <ul class="feature-list">
               <li class="item" style="margin-bottom: 30px;">
                 <a href="/setup_tableau" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="../statics/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="static/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Setting up Tableau Online / Desktop</h3>
                       <h4>View the custom generated instructions for configuring Tableau</h4>
                     </div>
                     <div class="back">
                       <h4>Click to view instructions including</h4>
                       <ul>
-                        <li>Connect Server Path</li>
+                        <li>Server Path</li>
                         <li>Authorization</li>
                         <li>Other info</li>
                       </ul>
@@ -114,15 +145,15 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="https://docs.rstudio.com/user/integration" class="feature-btn aligner">
+                <a href="https://docs.rstudio.com/rsc/integration/python/" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="../statics/images/connect-icon.png" alt="RStudio Connect icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="static/images/connect-icon.png" alt="RStudio Connect icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Hosting in RStudio Connect</h3>
                       <h4>View further details regarding the Tableau Integration feature</h4>
                     </div>
                     <div class="back">
-                      <h4>Click to view details including</h4>
+                      <h4>Click to navigate to the external documentation including</h4>
                       <ul>
                         <li>Integration Requirements</li>
                         <li>Authorization</li>
@@ -137,12 +168,12 @@
                 <a href="https://github.com/rstudio/fastapitableau" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="../statics/images/github.svg" alt="GitHub icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="static/images/github.svg" alt="GitHub icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>FastAPI Tableau Library</h3>
                       <h4>Dive in deep into the library making this all possible</h4>
                     </div>
                     <div class="back">
-                      <h4>Click to view details including</h4>
+                      <h4>Click to navigate to the external Github repository</h4>
                       <ul>
                         <li>Programming Guide</li>
                         <li>Source Code</li>

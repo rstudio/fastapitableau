@@ -9,11 +9,9 @@ def test_check_rstudio_connect():
 
     indicators = {
         "RSTUDIO_PRODUCT": "CONNECT",
-        "RSTUDIO_CONNECT_HASTE": "set",
-        "R_SESSION_TMPDIR": "/opt/rstudio-connect/mnt/tmp",
     }
 
-    # We'll test three different indicators.
+    # We'll test the one indicator.
     for k, v in indicators.items():
         os.environ[k] = v
         assert rstudio_connect.check_rstudio_connect() is True

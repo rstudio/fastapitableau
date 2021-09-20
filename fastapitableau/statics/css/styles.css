@@ -30,8 +30,12 @@ main {
   padding: 1rem;
 }
 
-.padded-flat-top {
+.orig-padded-flat-top {
   padding: 0 1rem;
+}
+
+.orig-api-desc {
+  margin-top: 4rem;
 }
 
 header {
@@ -40,43 +44,43 @@ header {
   display: flex;
 }
 
-.route {
+.orig-route {
   margin-bottom: 3rem;
   margin-left: 2rem;
   max-width: 1000px;
 }
 
-.route h3 {
+.orig-route h3 {
   margin-left: -2rem;
   font-family: monospace;
 }
 
 
-table.items {
+table.orig-items {
   border-spacing: 1px;
   border-collapse: collapse;
   width: 100%;
   font-size: 0.85em;
 }
 
-table.items th {
+table.orig-items th {
   text-align: left;
 }
 
-table.items th, table.items td {
+table.orig-items th, table.orig-items td {
   padding: 3px;
   border: 1px solid #EEE;
 }
 
-td.item-name {
+td.orig-item-name {
   width: 25%;
 }
 
-td.item-type {
+td.orig-item-type {
   width: 25%;
 }
 
-td.item-desc {
+td.orig-item-desc {
   width: 50%;
 }
 
