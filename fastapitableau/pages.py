@@ -96,7 +96,7 @@ async def tableau_usage(request: Request):
 
 # We're bypassing the built-in generation of the docs so we can show two different
 # versions of the OpenAPI docs: the default and then one reconfigured for Tableau.
-@built_in_pages.get("/docs", include_in_schema=False)
+@built_in_pages.get("/docs_openAPI", include_in_schema=False)
 async def docs_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
@@ -123,6 +123,7 @@ def custom_get_swagger_ui_html(
     swagger_css_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css",
     swagger_favicon_url: str = "https://fastapi.tiangolo.com/img/favicon.png",
 ) -> HTMLResponse:
+
     html = f"""
     <!DOCTYPE html>
     <html>
