@@ -19,6 +19,16 @@ class FastAPITableau(FastAPI):
         self.include_router(info_router)
         self.docs_url = None  # We will be serving up our own docs
         self.use_tableau_api_schema = False
+        if not self.description:
+            self.description = "Description not provided"
+
+    def calc_app_base_url(self, request):
+        app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
+        if not app_base_url:
+            app_base_url = "/"
+        else:
+            app_base_url = app_base_url + "/"
+        return app_base_url
 
     def openapi(self) -> Dict[str, Any]:
         orig_desc = self.description

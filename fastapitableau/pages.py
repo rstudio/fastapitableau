@@ -28,25 +28,10 @@ built_in_pages = APIRouter()
 
 @built_in_pages.get("/", include_in_schema=False)
 async def home(request: Request):
-    app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
-    if not app_base_url:
-        app_base_url = "/"
-    else:
-        app_base_url = app_base_url + "/"
-
-    routes_info = extract_routes_info(
-        app=request.app,
-        app_base_url=request.headers.get("RStudio-Connect-App-Base-URL"),
-    )
     context = {
         "request": request,
         "warning_message": rstudio_connect.warning_message(),
-        "routes_info": routes_info,
-        "title": request.app.title,
-        "routes": request.app.routes,
-        "request": request,
-        "connect_active": rstudio_connect.check_rstudio_connect(),
-        "app_base_url": app_base_url,
+        "app_base_url": request.app.calc_app_base_url(request),
     }
     return jinja_templates.TemplateResponse("index.html", context=context)
 
@@ -63,39 +48,18 @@ async def setup(request: Request):
         server_domain = parts.scheme + "://" + netloc[0]
         server_port = netloc[1]
 
-    app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
-    if not app_base_url:
-        app_base_url = "/"
-    else:
-        app_base_url = app_base_url + "/"
-
-    routes_info = extract_routes_info(
-        app=request.app,
-        app_base_url=request.headers.get("RStudio-Connect-App-Base-URL"),
-    )
     context = {
         "request": request,
         "warning_message": rstudio_connect.warning_message(),
-        "routes_info": routes_info,
-        "title": request.app.title,
-        "routes": request.app.routes,
-        "request": request,
-        "connect_active": rstudio_connect.check_rstudio_connect(),
         "server_domain": server_domain,
         "server_port": server_port,
-        "app_base_url": app_base_url,
+        "app_base_url": request.app.calc_app_base_url(request),
     }
     return jinja_templates.TemplateResponse("setup_tableau.html", context=context)
 
 
 @built_in_pages.get("/tableau_usage", include_in_schema=False)
 async def tableau_usage(request: Request):
-    app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
-    if not app_base_url:
-        app_base_url = "/"
-    else:
-        app_base_url = app_base_url + "/"
-
     routes_info = extract_routes_info(
         app=request.app,
         app_base_url=request.headers.get("RStudio-Connect-App-Base-URL"),
@@ -104,11 +68,7 @@ async def tableau_usage(request: Request):
         "request": request,
         "warning_message": rstudio_connect.warning_message(),
         "routes_info": routes_info,
-        "title": request.app.title,
-        "routes": request.app.routes,
-        "request": request,
-        "connect_active": rstudio_connect.check_rstudio_connect(),
-        "app_base_url": app_base_url,
+        "app_base_url": request.app.calc_app_base_url(request),
     }
     return jinja_templates.TemplateResponse("tableau_usage.html", context=context)
 
@@ -120,11 +80,7 @@ async def docs_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
     request.app.use_tableau_api_schema = False
-    app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
-    if not app_base_url:
-        app_base_url = "/"
-    else:
-        app_base_url = app_base_url + "/"
+    app_base_url = request.app.calc_app_base_url(request)
 
     return custom_get_swagger_ui_html(
         openapi_url=openapi_url, title="Swagger UI", home_url=app_base_url
@@ -135,11 +91,7 @@ async def docs_openAPI(request: Request):
 async def docs_tableau_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
-    app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
-    if not app_base_url:
-        app_base_url = "/"
-    else:
-        app_base_url = app_base_url + "/"
+    app_base_url = request.app.calc_app_base_url(request)
 
     request.app.use_tableau_api_schema = True
     return custom_get_swagger_ui_html(
