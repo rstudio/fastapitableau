@@ -76,7 +76,7 @@ async def tableau_usage(request: Request):
 
 # We're bypassing the built-in generation of the docs so we can show two different
 # versions of the OpenAPI docs: the default and then one reconfigured for Tableau.
-@built_in_pages.get("/docs_openAPI", include_in_schema=False)
+@built_in_pages.get("/docs_standard", include_in_schema=False)
 async def docs_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
@@ -88,7 +88,7 @@ async def docs_openAPI(request: Request):
     )
 
 
-@built_in_pages.get("/docs_tableau_openAPI", include_in_schema=False)
+@built_in_pages.get("/docs_tableau", include_in_schema=False)
 async def docs_tableau_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
@@ -135,7 +135,7 @@ def custom_get_swagger_ui_html(
             <div class="md-header__ellipsis">
             <div class="md-header__topic">
                 <span class="md-ellipsis">
-                    Tableau Extension Endpoint - {title}
+                    FastAPI Tableau — {title}
                 </span>
             </div>
             </div>
