@@ -11,6 +11,7 @@ from starlette.templating import Jinja2Templates
 
 from fastapitableau import rstudio_connect
 from fastapitableau.user_guide import extract_routes_info
+from fastapitableau.utils import calc_app_base_url
 
 
 def markdown_filter(text):
@@ -31,7 +32,7 @@ async def home(request: Request):
     context = {
         "request": request,
         "warning_message": rstudio_connect.warning_message(),
-        "app_base_url": request.app.calc_app_base_url(request),
+        "app_base_url": calc_app_base_url(request),
     }
     return jinja_templates.TemplateResponse("index.html", context=context)
 
@@ -53,7 +54,7 @@ async def setup(request: Request):
         "warning_message": rstudio_connect.warning_message(),
         "server_domain": server_domain,
         "server_port": server_port,
-        "app_base_url": request.app.calc_app_base_url(request),
+        "app_base_url": calc_app_base_url(request),
     }
     return jinja_templates.TemplateResponse("setup_tableau.html", context=context)
 
@@ -62,13 +63,13 @@ async def setup(request: Request):
 async def tableau_usage(request: Request):
     routes_info = extract_routes_info(
         app=request.app,
-        app_base_url=request.headers.get("RStudio-Connect-App-Base-URL"),
+        app_base_url=calc_app_base_url(request),
     )
     context = {
         "request": request,
         "warning_message": rstudio_connect.warning_message(),
         "routes_info": routes_info,
-        "app_base_url": request.app.calc_app_base_url(request),
+        "app_base_url": calc_app_base_url(request),
     }
     return jinja_templates.TemplateResponse("tableau_usage.html", context=context)
 
@@ -80,7 +81,7 @@ async def docs_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
     request.app.use_tableau_api_schema = False
-    app_base_url = request.app.calc_app_base_url(request)
+    app_base_url = calc_app_base_url(request)
 
     return custom_get_swagger_ui_html(
         openapi_url=openapi_url, title="Swagger UI", home_url=app_base_url
@@ -91,7 +92,7 @@ async def docs_openAPI(request: Request):
 async def docs_tableau_openAPI(request: Request):
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + "/openapi.json"
-    app_base_url = request.app.calc_app_base_url(request)
+    app_base_url = calc_app_base_url(request)
 
     request.app.use_tableau_api_schema = True
     return custom_get_swagger_ui_html(
@@ -117,7 +118,7 @@ def custom_get_swagger_ui_html(
     <link type="text/css" rel="stylesheet" href="{swagger_css_url}">
     <link rel="shortcut icon" href="{swagger_favicon_url}">
     <link rel="stylesheet" type="text/css" href="static/css/styles.css">
-    <link rel="stylesheet" href="static/css/home.min.css">
+    <link rel="stylesheet" href="static/css/home.css">
     <title>{title}</title>
     </head>
     <body>

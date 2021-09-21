@@ -22,14 +22,6 @@ class FastAPITableau(FastAPI):
         if not self.description:
             self.description = "Description not provided"
 
-    def calc_app_base_url(self, request):
-        app_base_url = request.headers.get("RStudio-Connect-App-Base-URL")
-        if not app_base_url:
-            app_base_url = "/"
-        else:
-            app_base_url = app_base_url + "/"
-        return app_base_url
-
     def openapi(self) -> Dict[str, Any]:
         orig_desc = self.description
         self.openapi_schema = None
