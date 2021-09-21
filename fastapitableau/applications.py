@@ -30,16 +30,12 @@ class FastAPITableau(FastAPI):
                 orig_desc
                 + """
             <br><br>
-            `
             NOTE: This documentation outlines the API requests that Tableau will make to the endpoint. They are very different than the standard web requests made available from this FastAPI endpoint.
-            `
             """
             )
             schema = super().openapi()
             tableau_paths = [
-                "/" + route.name
-                for route in self.routes
-                if isinstance(route, TableauRoute)
+                route.path for route in self.routes if isinstance(route, TableauRoute)
             ]
             self.openapi_schema = rewrite_tableau_openapi(schema, tableau_paths)
         else:
@@ -47,9 +43,7 @@ class FastAPITableau(FastAPI):
                 orig_desc
                 + """
             <br><br>
-            `
             NOTE: This documentation outlines the standard web requests made available from this FastAPI endpoint. They are very different than the requests which Tableau will make to this endpoint.
-            `
             """
             )
             self.openapi_schema = super().openapi()
