@@ -1,3 +1,4 @@
+import os
 from typing import Any, Dict
 
 from fastapi import APIRouter, FastAPI, Request
@@ -19,6 +20,14 @@ class FastAPITableau(FastAPI):
         self.include_router(info_router)
         self.docs_url = None  # We will be serving up our own docs
         self.use_tableau_api_schema = False
+        self.server_addr = os.getenv("CONNECT_SERVER", "")
+        self.appGUID = os.getenv("CONNECT_CONTENT_GUID", "")
+        self.appPath = "/"
+        if len(self.appGUID) > 0:
+            self.appPath = "/connect/#/apps/{}/".format(self.appGUID)
+        self.is_connect = False
+        if os.getenv("RSTUDIO_PRODUCT", "") == "CONNECT":
+            self.is_connect = True
 
     def openapi(self) -> Dict[str, Any]:
         orig_desc = self.description
