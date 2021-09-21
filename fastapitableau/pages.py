@@ -84,7 +84,9 @@ async def docs_openAPI(request: Request):
     app_base_url = calc_app_base_url(request)
 
     return custom_get_swagger_ui_html(
-        openapi_url=openapi_url, title="Swagger UI", home_url=app_base_url
+        openapi_url=openapi_url,
+        title="OpenAPI: Standard Web Requests",
+        home_url=app_base_url,
     )
 
 
@@ -96,7 +98,9 @@ async def docs_tableau_openAPI(request: Request):
 
     request.app.use_tableau_api_schema = True
     return custom_get_swagger_ui_html(
-        openapi_url=openapi_url, title="Tableau Interface", home_url=app_base_url
+        openapi_url=openapi_url,
+        title="OpenAPI: Tableau-Style Requests",
+        home_url=app_base_url,
     )
 
 
