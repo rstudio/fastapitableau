@@ -40,6 +40,7 @@ async def home(request: Request):
         "routes": request.app.routes,
         "request": request,
         "connect_active": rstudio_connect.check_rstudio_connect(),
+        "app_base_url": request.headers.get("RStudio-Connect-App-Base-URL"),
     }
     return jinja_templates.TemplateResponse("index.html", context=context)
 
