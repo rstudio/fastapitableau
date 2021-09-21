@@ -1,4 +1,4 @@
-from os import environ
+from os import environ, getcwd
 from typing import List, Optional
 from urllib.parse import urlparse
 
@@ -8,7 +8,13 @@ import requests
 def check_rstudio_connect() -> bool:
     """Returns True if running in RStudio Connect"""
     checks = [
+        # The first check is only valid for recent versions.
         environ.get("RSTUDIO_PRODUCT") == "CONNECT",
+        # We still perform checks for evidence we're running on older Connect versions so we can show warning messages about upgrading.
+        "RSTUDIO_CONNECT_HASTE" in environ.keys(),
+        getcwd() == "/opt/rstudio-connect/mnt/app",
+        environ.get("LOGNAME") == "rstudio-connect",
+        environ.get("TMPDIR") == "/opt/rstudio-connect/mnt/tmp",
     ]
     return any(checks)
 
