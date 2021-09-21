@@ -54,7 +54,6 @@ async def home(request: Request):
 @built_in_pages.get("/setup_tableau", include_in_schema=False)
 async def setup(request: Request):
     server = os.getenv("CONNECT_SERVER", "")
-    server = "http://127.0.0.1:8000/"
     parts = urlparse(server)
     # <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
     server_domain = "<enter the URL Path (example https://server.somewhere.com)>"
