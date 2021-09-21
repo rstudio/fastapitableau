@@ -116,7 +116,7 @@ def custom_get_swagger_ui_html(
     <head>
     <link type="text/css" rel="stylesheet" href="{swagger_css_url}">
     <link rel="shortcut icon" href="{swagger_favicon_url}">
-    <link rel="stylesheet" type="text/css" href="static/css/new_styles.css">
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
     <link rel="stylesheet" href="static/css/home.min.css">
     <title>{title}</title>
     </head>

@@ -2,7 +2,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Tableau Extension Endpoint</title>
-  <link rel="stylesheet" type="text/css" href="static/css/new_styles.css">
+  <link rel="stylesheet" type="text/css" href="static/css/styles.css">
   <link rel="stylesheet" href="static/css/home.min.css">
   
 </head>
@@ -41,7 +41,7 @@
               {% endif %}
             </h1>
             {% if request.app.description %}
-              <div class="orig-api-desc">
+              <div class="api-desc">
                   {{ request.app.description|markdown|safe }}
               </div>
             {% endif %}

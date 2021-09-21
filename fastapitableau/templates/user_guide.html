@@ -11,7 +11,7 @@
         {{ request.app.title }} {% if request.app.version %}v{{ request.app.version }}{% endif %}
       </h1>
       {% if request.app.description %}
-        <div class="orig-api-desc">
+        <div class="api-desc">
             {{ request.app.description|markdown|safe }}
         </div>
       {% endif %}
@@ -22,22 +22,22 @@
 <div class="routes_unused">
 
 {% for route in routes %}
-  <div class="orig-route">
+  <div class="route">
 
-    <h3 id="{{ path }}" class="orig-route-path">
+    <h3 id="{{ path }}" class="route-path">
       {{ route.path }}
       <a class="permalink" href="#{{ path|urlencode }}">#</a>
     </h3>
 
     {% if route.summary %}
-      <h4 class="orig-route-summary">{{ route.summary }}</h4>
+      <h4 class="route-summary">{{ route.summary }}</h4>
     {% endif %}
 
     {% if route.description %}
-      <div class="orig-route-description">{{ route.description|markdown|safe }}</div>
+      <div class="route-description">{{ route.description|markdown|safe }}</div>
     {% endif %}
 
-    <div class="orig-route-usage">
+    <div class="route-usage">
       <h4>Usage</h4>
       <code>{{ route.usage }}</code>
     </div>
@@ -57,14 +57,14 @@
     {% if route.return and route.returns.description %}
       <div class="return_unused">
         <h4>Return value</h4>
-        <table class="orig-items">
+        <table class="items">
           <tr>
             <th>Type</th>
             <th>Description</th>
           </tr>
           <tr>
-            <td class="orig-item-type">{{ route.returns.type|default("(Not specified)", true) }}</td>
-            <td class="orig-item-desc">{{ route.returns.description }}</td>
+            <td class="item-type">{{ route.returns.type|default("(Not specified)", true) }}</td>
+            <td class="item-desc">{{ route.returns.description }}</td>
           </tr>
         </table>
       </div>
