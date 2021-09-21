@@ -9,7 +9,7 @@
 <body>
   <header class="md-header" data-md-component="header" data-md-state="shadow">
     <nav class="md-header__inner md-grid" aria-label="Header">
-      <a href="/">
+      <a href="{{ app_base_url }}">
         <label class="md-header__button md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 113.97"><path d="M18.69,73.37,59.18,32.86c2.14-2.14,2.41-2.23,4.63,0l40.38,40.51V114h-30V86.55a3.38,3.38,0,0,0-3.37-3.37H52.08a3.38,3.38,0,0,0-3.37,3.37V114h-30V73.37ZM60.17.88,0,57.38l14.84,7.79,42.5-42.86c3.64-3.66,3.68-3.74,7.29-.16l43.41,43,14.84-7.79L62.62.79c-1.08-1-1.24-1.13-2.45.09Z"></path></svg>
         </label>
@@ -32,10 +32,6 @@
           <article class="md-content__inner md-typeset" style="margin-top: -2rem !important;">   
             <h1 style="font-size: 37px; letter-spacing: normal;">
               DEBUG: app_base_url={{ app_base_url }}<br>
-              DEBUG: server_addr={{ server_addr }}<br>
-              DEBUG: appGUID={{ appGUID }}<br>
-              DEBUG: appPath={{ appPath }}<br>
-              DEBUG: is_connect={{ is_connect }}<br>
 
               {{ request.app.title }} 
               {% if request.app.version %}
@@ -64,10 +60,10 @@
             </h4>           
             <ul class="feature-list">
               <li class="item" style="margin-bottom:30px;">
-                <a href="tableau_usage" class="feature-btn aligner">
+                <a href="{{ app_base_url }}tableau_usage" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="static/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="{{ app_base_url }}static/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>How to Use from within Tableau</h3>
                       <h4>View detailed instructions on how to use the functionality.</h4>
                     </div>
@@ -83,10 +79,10 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="docs_tableau_openAPI" class="feature-btn aligner">
+                <a href="{{ app_base_url }}docs_tableau_openAPI" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="static/images/connection-hosting.svg" alt="Tableau API icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="{{ app_base_url }}static/images/connection-hosting.svg" alt="Tableau API icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Tableau Style API Requests</h3>
                       <h4>View the OpenAPI Docs for the API that Tableau will use.</h4>
                     </div>
@@ -103,10 +99,10 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="docs_openAPI" class="feature-btn aligner">
+                <a href="{{ app_base_url }}docs_openAPI" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="static/images/api.svg" alt="API icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="{{ app_base_url }}static/images/api.svg" alt="API icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Standard Style Web Requests</h3>
                       <h4>View the OpenAPI Docs for the API made available by this app.</h4>
                     </div>
@@ -132,10 +128,10 @@
             </h4>      
             <ul class="feature-list">
               <li class="item" style="margin-bottom: 30px;">
-                <a href="setup_tableau" class="feature-btn aligner">
+                <a href="{{ app_base_url }}setup_tableau" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="static/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="{{ app_base_url }}static/images/tableau.png" alt="Tableau icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Setting up Tableau Online / Desktop</h3>
                       <h4>View the custom generated instructions for configuring Tableau</h4>
                     </div>
@@ -151,15 +147,15 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="https://docs.rstudio.com/rsc/integration/python/" class="feature-btn aligner">
+                <a href="https://docs.rstudio.com/rsc/integration/python/" target="_blank" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="static/images/connect-icon.png" alt="RStudio Connect icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="{{ app_base_url }}static/images/connect-icon.png" alt="RStudio Connect icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>Hosting in RStudio Connect</h3>
                       <h4>View further details regarding the Tableau Integration feature</h4>
                     </div>
                     <div class="back">
-                      <h4>Click to navigate to the external documentation including</h4>
+                      <h4>Click to open the external documentation including</h4>
                       <ul>
                         <li>Integration Requirements</li>
                         <li>Authorization</li>
@@ -171,15 +167,15 @@
                 </a>
               </li>
               <li class="item" style="margin-bottom: 30px;">
-                <a href="https://github.com/rstudio/fastapitableau" class="feature-btn aligner">
+                <a href="https://github.com/rstudio/fastapitableau" target="_blank" class="feature-btn aligner">
                   <div class="aligner-item aligner-item--fixed">
                     <div class="front">
-                      <img src="static/images/github.svg" alt="GitHub icon" style="width: 3.4rem; height: 3.4rem">
+                      <img src="{{ app_base_url }}static/images/github.svg" alt="GitHub icon" style="width: 3.4rem; height: 3.4rem">
                       <h3>FastAPI Tableau Library</h3>
                       <h4>Dive in deep into the library making this all possible</h4>
                     </div>
                     <div class="back">
-                      <h4>Click to navigate to the external Github repository</h4>
+                      <h4>Click to open the external Github repository</h4>
                       <ul>
                         <li>Programming Guide</li>
                         <li>Source Code</li>
