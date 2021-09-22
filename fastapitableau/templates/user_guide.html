@@ -5,7 +5,7 @@
 {% for route in routes %}
   <div class="route">
 
-    <h3 id="{{ path }}" class="route-path">
+    <h3 id="{{ route.name }}" class="route-path">
       <code>{{ route.path }}</code>
       <a class="permalink" href="#{{ route.name|urlencode }}">#</a>
     </h3>
