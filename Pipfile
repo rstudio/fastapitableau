@@ -22,6 +22,9 @@ isort = "*"
 pre-commit = "*"
 ipython = "*"
 pytest-subtests = "*"
+typed-ast = "*"
+types-requests = "*"
+types-setuptools = "*"
 
 [pipenv]
 allow_prereleases = true

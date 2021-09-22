@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; child-src 'none';">
-  <link rel="stylesheet" type="text/css" href="static/css/styles.css"/>
+  <!-- <link rel="stylesheet" type="text/css" href="static/css/styles.css"/> -->
 </head>
 <body> #}
   {# <div class="container"> #}
@@ -11,7 +11,7 @@
         {{ request.app.title }} {% if request.app.version %}v{{ request.app.version }}{% endif %}
       </h1>
       {% if request.app.description %}
-        <div class="api-desc padded-flat-top">
+        <div class="api-desc">
             {{ request.app.description|markdown|safe }}
         </div>
       {% endif %}
@@ -19,25 +19,25 @@
     {# <main> #}
 
 
-<div class="routes">
+<div class="routes_unused">
 
 {% for route in routes %}
   <div class="route">
 
-    <h3 id="{{ path }}" class="path">
+    <h3 id="{{ path }}" class="route-path">
       {{ route.path }}
       <a class="permalink" href="#{{ path|urlencode }}">#</a>
     </h3>
 
     {% if route.summary %}
-      <h4>{{ route.summary }}</h4>
+      <h4 class="route-summary">{{ route.summary }}</h4>
     {% endif %}
 
     {% if route.description %}
-      <div>{{ route.description|markdown|safe }}</div>
+      <div class="route-description">{{ route.description|markdown|safe }}</div>
     {% endif %}
 
-    <div class="usage">
+    <div class="route-usage">
       <h4>Usage</h4>
       <code>{{ route.usage }}</code>
     </div>
@@ -55,7 +55,7 @@
 
 
     {% if route.return and route.returns.description %}
-      <div class="return">
+      <div class="return_unused">
         <h4>Return value</h4>
         <table class="items">
           <tr>

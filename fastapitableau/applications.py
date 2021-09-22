@@ -17,17 +17,38 @@ class FastAPITableau(FastAPI):
         self.mount("/static", statics, name="static")
         self.include_router(built_in_pages)
         self.include_router(info_router)
+        self.docs_url = None  # We will be serving up our own docs
+        self.use_tableau_api_schema = False
+        if not self.description:
+            self.description = "Description not provided"
 
     def openapi(self) -> Dict[str, Any]:
-        if not self.openapi_schema:
-            openapi_schema = super().openapi()
+        orig_desc = self.description
+        self.openapi_schema = None
+        if self.use_tableau_api_schema:
+            self.description = (
+                orig_desc
+                + """
+            <br><br>
+            NOTE: This documentation outlines the API requests that Tableau will make to the endpoint. They are very different than the standard web requests made available from this FastAPI endpoint.
+            """
+            )
+            schema = super().openapi()
             tableau_paths = [
-                "/" + route.name
-                for route in self.routes
-                if isinstance(route, TableauRoute)
+                route.path for route in self.routes if isinstance(route, TableauRoute)
             ]
-            openapi_schema = rewrite_tableau_openapi(openapi_schema, tableau_paths)
-            self.openapi_schema = openapi_schema
+            self.openapi_schema = rewrite_tableau_openapi(schema, tableau_paths)
+        else:
+            self.description = (
+                orig_desc
+                + """
+            <br><br>
+            NOTE: This documentation outlines the standard web requests made available from this FastAPI endpoint. They are very different than the requests which Tableau will make to this endpoint.
+            """
+            )
+            self.openapi_schema = super().openapi()
+
+        self.description = orig_desc
         return self.openapi_schema
 
 
