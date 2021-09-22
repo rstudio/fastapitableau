@@ -547,3 +547,8 @@ h2.divider {
 .tableau-usage-container {
   margin-top: -2rem;
 }
+
+.warning-container {
+  color: black;
+  background-color: antiquewhite;
+}
