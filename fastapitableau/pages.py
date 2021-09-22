@@ -122,7 +122,6 @@ def custom_get_swagger_ui_html(
     <link type="text/css" rel="stylesheet" href="{swagger_css_url}">
     <link rel="shortcut icon" href="{swagger_favicon_url}">
     <link rel="stylesheet" type="text/css" href="static/css/styles.css">
-    <link rel="stylesheet" href="static/css/home.css">
     <title>{title}</title>
     </head>
     <body>
@@ -148,24 +147,16 @@ def custom_get_swagger_ui_html(
     </header>
     <!-- END: Insert our header into the documentation -->
 
-    <!-- BEGIN: Embed swagger docs into our style containers -->
-    <div class="md-container">
-    <main class="md-main">
-      <div class="md-main__inner md-grid">
-        <div class="md-content">
-          <article class="md-content__inner md-typeset" style="margin-top: -2.7rem !important; margin-left: -5px;">
-    <!-- END: Embed swagger docs into our style containers -->
+    <!-- BEGIN: Small container to make positions consistent between this and other pages -->
+    <div class="swagger-container">
+    <!-- END: Small container -->
 
     <div id="swagger-ui">
     </div>
 
-    <!-- BEGIN: Finish Embedding swagger docs into our style containers -->
-          </article>
-        </div>
-      </div>
-    </main>
+    <!-- BEGIN: Close our small container -->
     </div>
-    <!-- END: Finish Embedding swagger docs into our style containers -->
+    <!-- END: Close small container -->
 
     <script src="{swagger_js_url}"></script>
     <!-- `SwaggerUIBundle` is now available on the page -->

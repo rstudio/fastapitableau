@@ -1,25 +1,6 @@
-{# <!DOCTYPE html>
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; child-src 'none';">
-  <!-- <link rel="stylesheet" type="text/css" href="static/css/styles.css"/> -->
-</head>
-<body> #}
-  {# <div class="container"> #}
-{#     <header>
-      <h1>
-        {{ request.app.title }} {% if request.app.version %}v{{ request.app.version }}{% endif %}
-      </h1>
-      {% if request.app.description %}
-        <div class="api-desc">
-            {{ request.app.description|markdown|safe }}
-        </div>
-      {% endif %}
-    </header> #}
-    {# <main> #}
 
 
-<div class="routes_unused">
+<div>
 
 {% for route in routes %}
   <div class="route">
@@ -55,7 +36,7 @@
 
 
     {% if route.return and route.returns.description %}
-      <div class="return_unused">
+      <div>
         <h4>Return value</h4>
         <table class="items">
           <tr>
@@ -76,7 +57,3 @@
 
         
       </div>
-    {# </main> #}
-  {# </div> #}
-{# </body> #}
-{# </html> #}
