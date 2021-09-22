@@ -60,6 +60,7 @@ class RouteInfo:
     body_params: List[ParamInfo]
     query_params: List[ParamInfo]
     return_info: ReturnInfo
+    name: str
 
     def __init__(self, route, app_base_url: Optional[str]):
         if app_base_url:
@@ -73,6 +74,7 @@ class RouteInfo:
         self.query_params = [ParamInfo(param) for param in route.dependant.query_params]
         self.return_info = ReturnInfo(route)
         self.usage = self._tableau_usage_str()
+        self.name = route.path.lstrip("/")
 
     def _tableau_usage_str(self):
         tableau_funcs = {
