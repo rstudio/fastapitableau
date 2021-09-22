@@ -1,3 +1,5 @@
+/*User Guide Styles*/
+
 @charset "UTF-8";
 html {
     box-sizing: border-box;
@@ -30,6 +32,39 @@ a {
 
 img {
     border-style: none
+}
+
+body,
+.route code,
+.warning-container code,
+input,
+kbd,
+pre {
+    color: var(--md-typeset-color)
+}
+
+.route code,
+.warning-container code,
+kbd,
+pre {
+    font-feature-settings: "kern";
+    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+    padding: .2em .4em;
+    border-radius: 6px;
+    font-size: 85%;
+    word-break: break-word;
+    background-color: var(--md-code-bg-color);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone
+}
+
+.explain p {
+    margin-top:  -1.6em;
+    /*padding: .2em .4em;*/
+    /*border-radius: 6px;*/
+    font-style: italic;
+    font-size: 95%;
+    /*background-color: var(--md-code-bg-color);*/
 }
 
 :root {
@@ -120,33 +155,31 @@ input {
 }
 
 .md-typeset h1 {
-    margin: 0 0 1.25emline-height:1.3;
+    margin: 0 0 1.25em
+    /*line-height:1.3;*/
     font-size: 36px;
 }
 
 .md-typeset h1,
 .md-typeset h2 {
-    letter-spacing: -.01em
 }
 
 .md-typeset h2 {
-    margin: 1.6em 0 .64em;
+    /*margin: 1.6em 0em;*/
     font-size: 1.5625em;
     line-height: 1.4
 }
 
 .md-typeset h3 {
-    margin: 1.6em 0 .8em;
+    /*margin: 1.6em 0em;*/
     font-weight: bold;
     font-size: 1.25em;
     line-height: 1.5;
-    letter-spacing: -.01em
 }
 
 .md-typeset h4 {
-    margin: 1em 0;
+    /*margin: 1em 0;*/
     font-weight: 700;
-    letter-spacing: -.01em
 }
 
 .md-typeset a {
@@ -176,7 +209,7 @@ input {
 
 .md-typeset ol li,
 .md-typeset ul li {
-    margin-bottom: .5em;
+    /*margin-bottom: .5em;*/
     margin-left: 1.25em
 }
 
@@ -189,6 +222,21 @@ input {
 .md-typeset svg {
     max-width: 100%;
     height: auto
+}
+
+.md-typeset code,
+.md-typeset kbd,
+.md-typeset pre {
+    color: var(--md-code-fg-color);
+    direction: ltr
+}
+
+@media print {
+    .md-typeset code,
+    .md-typeset kbd,
+    .md-typeset pre {
+        white-space: pre-wrap
+    }
 }
 
 html {
@@ -517,6 +565,34 @@ h2.divider {
   margin-top: 0;
 }
 
+table.items {
+  border-spacing: 1px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.items th {
+  text-align: left;
+}
+
+table.items th, table.items td {
+  padding: 3px;
+  border: 1px solid #EEE;
+}
+
+td.item-name {
+  width: 25%;
+}
+
+td.item-type {
+  width: 25%;
+}
+
+td.item-desc {
+  width: 50%;
+}
+
+
 .small-button {
   background: #7d8492;
   border-radius: 57px;
@@ -549,6 +625,8 @@ h2.divider {
 }
 
 .warning-container {
-  color: black;
+  /*color: black;*/
   background-color: antiquewhite;
+  padding: 0.4em 0.4em;
+  border-radius: 6px;
 }

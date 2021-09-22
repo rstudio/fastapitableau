@@ -1,6 +1,6 @@
     <div class="route-args">
       <h4>{{ name }}</h4>
-      <p>{{ description|markdown|safe }}</p>
+      <div class="explain">{{ description|markdown|safe }}</explain>
       <table class="items">
         <tr>
           {% if ordered %}

@@ -30,7 +30,7 @@ class FastAPITableau(FastAPI):
                 orig_desc
                 + """
             <br><br>
-            NOTE: This documentation outlines the API requests that Tableau will make to the endpoint. They are very different than the standard web requests made available from this FastAPI endpoint.
+            *NOTE: This page's example API requests are formatted like the requests that Tableau will send. They are different from standard web requests, which are documented [here](../docs_standard).*
             """
             )
             schema = super().openapi()
@@ -43,7 +43,7 @@ class FastAPITableau(FastAPI):
                 orig_desc
                 + """
             <br><br>
-            NOTE: This documentation outlines the standard web requests made available from this FastAPI endpoint. They are very different than the requests which Tableau will make to this endpoint.
+            *NOTE: This page's example API requests are formatted like standard web requests. They are different from the requests that Tableau will send, which are documented [here](../docs_tableau).*
             """
             )
             self.openapi_schema = super().openapi()

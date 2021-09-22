@@ -6,7 +6,7 @@
   <div class="route">
 
     <h3 id="{{ path }}" class="route-path">
-      {{ route.path }}
+      <code>{{ route.path }}</code>
       <a class="permalink" href="#{{ path|urlencode }}">#</a>
     </h3>
 
@@ -23,12 +23,12 @@
       <code>{{ route.usage }}</code>
     </div>
     <!-- Body params -->
-    {% with name = "Arguments", description = "Pass these to your Tableau calculation after the script path in the listed order.", params = route.body_params, ordered = True %}
+    {% with name = "Arguments", description = "Place these in your Tableau calculation after the script path, in the listed order.", params = route.body_params, ordered = True %}
       {% include "param_table.html" %}
     {% endwith %}
     <!-- Query params -->
     {% if route.query_params %}
-      {% with name = "Query Parameters", description = "Query parameters are placed after the script path, preceded by `?` and separated by `&`, as in `/path?param1=green&param2=42`.", params = route.query_params %}
+      {% with name = "Query Parameters", description = "Place these at the end of the script path, preceded by `?` and separated by `&`, as in `/path?param1=green&param2=42`.", params = route.query_params %}
         {% include "param_table.html" %}
       {% endwith %}
     {% endif %}
