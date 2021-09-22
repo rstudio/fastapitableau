@@ -7,7 +7,7 @@
 
     <h3 id="{{ path }}" class="route-path">
       <code>{{ route.path }}</code>
-      <a class="permalink" href="#{{ path|urlencode }}">#</a>
+      <a class="permalink" href="#{{ route.name|urlencode }}">#</a>
     </h3>
 
     {% if route.summary %}

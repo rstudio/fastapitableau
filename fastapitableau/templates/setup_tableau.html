@@ -49,24 +49,24 @@
                 {{ warning_message|markdown|safe }}
               </div>
             {% endif %}         
-            <h2>Configure Tableau to access this extension</h3>
+            <h2>Configure Tableau to access extensions hosted on your RStudio Connect</h3>
             <div>
               <h3>If you are using Tableau Server or Tableau Online:</h3>
               <ol>
                 <li>Using an administrative account, login to Tableau Server/Online</li>
                 <li>Navigate to Settings, then Extensions</li>
-                <li>Under the heading 'Analytics Extensions', select 'Enable analytics extension for site</li>
+                <li>Under the heading 'Analytics Extensions', select 'Enable analytics extensions for site'</li>
                 <li>Create a new connection and select the connection type of 'Analytics Extensions API'</li>
-                <li>Select if you want to use SSL</li>
+                <li>Choose if your RStudio Connect server uses SSL</li>
                 <li>Enter the information for your RStudio Connect Server:</li>
                 <div class="indented-detail">
-                  <div><span class="bold-text">Host:</span><span class="indented-detail">{{ server_domain }}</span></div>
-                  <div><span class="bold-text">Port:</span><span class="indented-detail">{{ server_port }}</span></div>
+                  <div><span class="bold-text">Host: </span><span class="pill">{{ server_domain }}</span></div>
+                  <div><span class="bold-text">Port: </span><span class="pill">{{ server_port }}</span></div>
                 </div>
                 <li>Select 'Sign in with a username and password' and enter the credentials:</li>
                 <div class="indented-detail">
-                  <div><span class="bold-text">Username:</span><span class="indented-detail">rstudio-connect</span></div>
-                  <div><span class="bold-text">Password:</span><span class="indented-detail italic-text">any valid API key from RStudio Connect</span></div>
+                  <div><span class="bold-text">Username: </span><span class="pill">rstudio-connect</span></div>
+                  <div><span class="bold-text">Password: </span><span class="pill">&lt;any valid API key from RStudio Connect&gt;</span></div>
                 </div>
                 <li>Create / Save changes</li>
               </ol>
@@ -78,18 +78,19 @@
                 <li>Select 'TabPy/External API'</li>
                 <li>Enter the information for your RStudio Connect Server:</li>
                 <div class="indented-detail">
-                  <div><span class="bold-text">Host:</span><span class="indented-detail">{{ server_domain }}</span></div>
-                  <div><span class="bold-text">Port:</span><span class="indented-detail">{{ server_port }}</span></div>
+                  <div><span class="bold-text">Host: </span><span class="pill">{{ server_domain }}</span></div>
+                  <div><span class="bold-text">Port: </span><span class="pill">{{ server_port }}</span></div>
                 </div>
                 <li>If desired, select 'Sign in with a username and password' and enter the credentials:</li>
                 <div class="indented-detail">
-                  <div><span class="bold-text">Username:</span><span class="indented-detail">rstudio-connect</span></div>
-                  <div><span class="bold-text">Password:</span><span class="indented-detail italic-text">any valid API key from RStudio Connect</span></div>
+                  <div><span class="bold-text">Username: </span><span class="pill">rstudio-connect</span></div>
+                  <div><span class="bold-text">Password: </span><span class="pill italic-text">any valid API key from RStudio Connect</span></div>
                 </div>
                 <li>Select whether to Require SSL</li>
                 <li>Save changes</li>
               </ol>
             </div>
+            For more information about setting up analytics extensions in Tableau, please see the <a href="https://help.tableau.com/current/server/en-us/config_r_tabpy.htm">Tableau documentation</a>.
           </article>
         </div>
       </div>      

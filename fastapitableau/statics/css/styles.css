@@ -34,19 +34,17 @@ img {
     border-style: none
 }
 
-body,
-.route code,
-.warning-container code,
-input,
-kbd,
-pre {
+body {
     color: var(--md-typeset-color)
 }
 
 .route code,
 .warning-container code,
+.indented-detail code,
+input,
 kbd,
 pre {
+    color: var(--md-typeset-color);
     font-feature-settings: "kern";
     font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
     padding: .2em .4em;
@@ -629,4 +627,20 @@ td.item-desc {
   background-color: antiquewhite;
   padding: 0.4em 0.4em;
   border-radius: 6px;
+}
+
+.indented-detail {
+  margin: 0 0 0 2rem;
+}
+
+.pill {
+    color: var(--md-typeset-color);
+    font-feature-settings: "kern";
+    padding: .2em .4em;
+    border-radius: 6px;
+    font-size: 85%;
+    word-break: break-word;
+    background-color: var(--md-code-bg-color);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone
 }

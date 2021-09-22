@@ -42,8 +42,10 @@ async def setup(request: Request):
     server = os.getenv("CONNECT_SERVER", "")
     parts = urlparse(server)
     # <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
-    server_domain = "<enter the URL Path (example https://server.somewhere.com)>"
-    server_port = "<enter the port which your server is listening to>"
+    server_domain = (
+        "<The URL for your RStudio Connect server (e.g. https://connect.example.com)>"
+    )
+    server_port = "<The port on which your RStudio Connect is listening>"
     netloc = parts.netloc.split(":")
     if len(netloc) > 1:
         server_domain = parts.scheme + "://" + netloc[0]
