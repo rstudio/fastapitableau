@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>FastAPI Tableau</title>
   <link rel="stylesheet" type="text/css" href="static/css/styles.css">
-  <link rel="stylesheet" href="static/css/home.css">
+
 </head>
 <body>
   <header class="md-header" data-md-component="header" data-md-state="shadow">
@@ -25,7 +25,7 @@
       </div>
     </nav>
   </header>
-  <div class="md-container reverse-margin-2">
+  <div class="md-container tableau-usage-container">
     <main class="md-main">
       <div class="md-main__inner md-grid">
         <div class="md-content">
@@ -47,7 +47,7 @@
             {% endif %}
             <div class="">
               {% if warning_message %}
-              <div class="md-header">
+              <div class="warning-container">
                 {{ warning_message|markdown|safe }}
               </div>
               {% endif %}
