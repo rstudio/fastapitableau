@@ -41,7 +41,7 @@ async def tableau_request_validation_exception_handler(
 
 
 async def tableau_general_exception_handler(
-    request: Request, exc: HTTPException
+    request: Request, exc: Exception
 ) -> JSONResponse:
     return JSONResponse(
         status_code=HTTP_400_BAD_REQUEST,
