@@ -43,6 +43,18 @@ curl -X 'POST' \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{
+        "script": "/capitalize",
+        "data": {   
+                "arg1_": ["dog", "cat", "rabbit"]
+        }
+}'
+
+
+curl -X 'POST' \
+'http://127.0.0.1:8000/evaluate' \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{
         "script": "/paste",
         "data": {   
                 "arg1_": ["Toph", "Bill", "James"],
@@ -59,7 +71,7 @@ curl -X 'POST' \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{
-        "first": ["Toph", "Bill", "James"],
+        "first": ["Toph", "Bill", "James"]
 }'
 
 

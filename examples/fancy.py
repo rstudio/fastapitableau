@@ -1,5 +1,7 @@
 from typing import List
 
+from fastapi import HTTPException
+
 from fastapitableau import FastAPITableau
 
 app = FastAPITableau(
@@ -35,12 +37,21 @@ def paste(first: List[str], second: List[str]) -> List[str]:
     return result
 
 
-# @app.post(
-#     "/add",
-#     summary="Add a number to a list of numbers",
-#     description="A function that adds a number to a list of numbers. This is intended to test query parameters.",
-#     response_description="Numbers with added number"
-# )
-# def sum(numbers: List[float], to_add: float) -> List[float]:
-#     result = [i + to_add for i in numbers]
-#     return result
+@app.post(
+    "/add",
+    summary="Add a number to a list of numbers",
+    description="A function that adds a number to a list of numbers. This is intended to test query parameters.",
+    response_description="Numbers with added number",
+)
+def sum(numbers: List[float], to_add: float) -> List[float]:
+    result = [i + to_add for i in numbers]
+    return result
+
+
+@app.post(
+    "/fail",
+    summary="Fails and raises an HTTP Exception",
+    # description="Capitalize each item in a list of strings"
+)
+def fail(text: List[str]) -> None:
+    raise HTTPException(status_code=420, detail="This didn't work")
