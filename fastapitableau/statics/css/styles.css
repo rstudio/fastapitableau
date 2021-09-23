@@ -644,3 +644,8 @@ td.item-desc {
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone
 }
+
+.route-details {
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
