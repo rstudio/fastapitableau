@@ -124,7 +124,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
                 "\n"
                 "Possible Solution:\n"
                 "\n"
-                "- Please ask your administrator to set `Tableau.TableauIntegrationEnabled` = `true` within `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
+                "- Please ask your administrator to set `TableauIntegration.Enabled` = `true` within `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
             )
             # TODO: debug
 
