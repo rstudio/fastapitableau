@@ -36,7 +36,6 @@ class FastAPITableau(FastAPI):
         ] = tableau_request_validation_exception_handler
         self.exception_handlers[Exception] = tableau_general_exception_handler
         self.middleware_stack = self.build_middleware_stack()
-        print(self.middleware_stack)
 
     def openapi(self) -> Dict[str, Any]:
         orig_desc = self.description
