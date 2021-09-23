@@ -35,7 +35,7 @@ async def tableau_request_validation_exception_handler(
         status_code=HTTP_422_UNPROCESSABLE_ENTITY,
         content={
             "message": f"Server Error: {type(exc).__name__}",
-            "info": {str(exc)},
+            "info": str(exc),
         },
     )
 
@@ -47,6 +47,6 @@ async def tableau_general_exception_handler(
         status_code=HTTP_400_BAD_REQUEST,
         content={
             "message": f"Server Error: {type(exc).__name__}",
-            "info": {str(exc)},
+            "info": str(exc),
         },
     )
