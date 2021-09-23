@@ -1,7 +1,14 @@
 from typing import Any, Dict
 
 from fastapi import APIRouter, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException
 
+from fastapitableau.exception_handlers import (
+    tableau_general_exception_handler,
+    tableau_http_exception_handler,
+    tableau_request_validation_exception_handler,
+)
 from fastapitableau.openapi import rewrite_tableau_openapi
 from fastapitableau.pages import built_in_pages, statics
 
@@ -21,6 +28,15 @@ class FastAPITableau(FastAPI):
         self.use_tableau_api_schema = False
         if not self.description:
             self.description = "Description not provided"
+
+        # Add exception handlers
+        self.exception_handlers[HTTPException] = tableau_http_exception_handler
+        self.exception_handlers[
+            RequestValidationError
+        ] = tableau_request_validation_exception_handler
+        self.exception_handlers[Exception] = tableau_general_exception_handler
+        self.middleware_stack = self.build_middleware_stack()
+        print(self.middleware_stack)
 
     def openapi(self) -> Dict[str, Any]:
         orig_desc = self.description
