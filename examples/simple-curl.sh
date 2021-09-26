@@ -33,7 +33,7 @@ curl -X 'POST' \
 -d '{
         "script": "/capitalize",
         "data": {   
-                "arg1_": ["dog", "cat", "rabbit"]
+                "_arg1": ["dog", "cat", "rabbit"]
         }
 }'
 
@@ -45,7 +45,7 @@ curl -X 'POST' \
 -d '{
         "script": "/capitalize",
         "data": {   
-                "arg1_": ["dog", "cat", "rabbit"]
+                "_arg1": ["dog", "cat", "rabbit"]
         }
 }'
 
@@ -57,8 +57,8 @@ curl -X 'POST' \
 -d '{
         "script": "/paste",
         "data": {   
-                "arg1_": ["Toph", "Bill", "James"],
-                "arg2_": ["Allen", "Sager", "Blair"]
+                "_arg1": ["Toph", "Bill", "James"],
+                "_arg2": ["Allen", "Sager", "Blair"]
         }
 }'
 

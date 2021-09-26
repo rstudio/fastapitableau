@@ -61,7 +61,7 @@ def rewrite_tableau_openapi(
         # Generate a list of the expected Tableau labels. If it is in `required`, relabel it there, and add it to the list of new keys.
         new_keys = []
         for i, key in enumerate(schema["properties"].keys()):
-            new_key_name = "arg" + str(i + 1) + "_"
+            new_key_name = "_arg" + str(i + 1)
             new_keys.append(new_key_name)
             schema["required"] = [
                 x if x != key else new_key_name for x in schema["required"]
@@ -97,7 +97,7 @@ def get_swagger_ui_html(
 ) -> HTMLResponse:
 
     html = f"""
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html>
     <head>
     <link type="text/css" rel="stylesheet" href="{swagger_css_url}">
@@ -110,20 +110,21 @@ def get_swagger_ui_html(
     <!-- BEGIN: Insert our header into the documentation -->
     <header class="md-header" data-md-component="header" data-md-state="shadow">
         <nav class="md-header__inner md-grid" aria-label="Header">
-        <a href="{home_url}">
-            <label class="md-header__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 113.97"><path d="M18.69,73.37,59.18,32.86c2.14-2.14,2.41-2.23,4.63,0l40.38,40.51V114h-30V86.55a3.38,3.38,0,0,0-3.37-3.37H52.08a3.38,3.38,0,0,0-3.37,3.37V114h-30V73.37ZM60.17.88,0,57.38l14.84,7.79,42.5-42.86c3.64-3.66,3.68-3.74,7.29-.16l43.41,43,14.84-7.79L62.62.79c-1.08-1-1.24-1.13-2.45.09Z"></path></svg>
-            </label>
-        </a>
-        <div class="md-header__title" data-md-component="header-title">
-            <div class="md-header__ellipsis">
-            <div class="md-header__topic">
-                <span class="md-ellipsis">
-                    FastAPI Tableau — {title}
-                </span>
-            </div>
-            </div>
-        </div>
+            <a href="{home_url}" class="nav-bar">
+                <label class="md-header__button md-icon">
+                    <!-- back icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.88"><title>back</title><path class="cls-1" d="M61.44,0A61.51,61.51,0,1,1,18,18,61.25,61.25,0,0,1,61.44,0Zm5,45.27A7.23,7.23,0,1,0,56.14,35.13L35,56.57a7.24,7.24,0,0,0,0,10.15l20.71,21A7.23,7.23,0,1,0,66.06,77.62l-8.73-8.87,24.86-.15a7.24,7.24,0,1,0-.13-14.47l-24.44.14,8.84-9Z"/></svg>
+                </label>
+                <div class="md-header__title" data-md-component="header-title">
+                    <div class="md-header__ellipsis">
+                        <div class="md-header__topic">
+                            <span class="md-ellipsis">
+                                FastAPI Tableau — {title}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </nav>
     </header>
     <!-- END: Insert our header into the documentation -->

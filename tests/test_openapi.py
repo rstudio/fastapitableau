@@ -200,15 +200,15 @@ def tableau_openapi_schema():
             "schemas": {
                 "Body_paste_paste_post": {
                     "title": "Body_paste_paste_post",
-                    "required": ["arg1_", "arg2_"],
+                    "required": ["_arg1", "_arg2"],
                     "type": "object",
                     "properties": {
-                        "arg1_": {
+                        "_arg1": {
                             "title": "First",
                             "type": "array",
                             "items": {"type": "string"},
                         },
-                        "arg2_": {
+                        "_arg2": {
                             "title": "Second",
                             "type": "array",
                             "items": {"type": "string"},
@@ -242,10 +242,10 @@ def tableau_openapi_schema():
                 },
                 "Body_capitalize_capitalize_post": {
                     "title": "Body_capitalize_capitalize_post",
-                    "required": ["arg1_"],
+                    "required": ["_arg1"],
                     "type": "object",
                     "properties": {
-                        "arg1_": {
+                        "_arg1": {
                             "title": "Text",
                             "type": "array",
                             "items": {"type": "string"},

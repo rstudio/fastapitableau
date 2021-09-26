@@ -67,7 +67,7 @@ for path_name in openapi["paths"].keys():
     # Generate a list of the expected Tableau labels. If it is in `required`, relabel it there, and add it to the list of new keys.
     new_keys = []
     for i, key in enumerate(schema["properties"].keys()):
-        new_key_name = "arg" + str(i + 1) + "_"
+        new_key_name = "_arg" + str(i + 1)
         new_keys.append(new_key_name)
         schema["required"] = [
             x if x != key else new_key_name for x in schema["required"]
