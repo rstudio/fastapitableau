@@ -649,3 +649,10 @@ td.item-desc {
   margin-left: 2rem;
   margin-bottom: 2rem;
 }
+
+.nav-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.2rem;
+}
