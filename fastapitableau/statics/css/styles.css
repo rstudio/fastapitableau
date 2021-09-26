@@ -645,6 +645,11 @@ td.item-desc {
     box-decoration-break: clone
 }
 
+.route-details {
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+
 .nav-bar {
   width: 100%;
   display: flex;
