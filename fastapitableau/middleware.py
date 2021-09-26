@@ -26,11 +26,15 @@ class TableauExtensionMiddleware:
         print(event)
 
         body = json.loads(event["body"])
-        target_path = body["script"]
-        target_path_parts = target_path.split("/")
-        flat_target_path = "/" + target_path_parts[len(target_path_parts) - 1]
+        # target_path = body["script"]
+        # target_path_parts = target_path.split("/")
+        # flat_target_path = "/" + target_path_parts[len(target_path_parts) - 1]
 
+        # scope["path"] = flat_target_path
+        # TEMP 2 lines
+        flat_target_path = body["script"]
         scope["path"] = flat_target_path
+
         scope["raw_path"] = bytes(flat_target_path, encoding="utf-8")
 
         async def _receive():
