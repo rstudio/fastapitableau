@@ -86,7 +86,8 @@ class RouteInfo:
         }
 
         if self.return_info.type not in tableau_funcs.keys():
-            raise TypeError("Unexpected return type: %s" % (self.return_info.type))
+            return f"Cannot determine Tableau script for return type '{self.return_info.type}'"
+            # raise TypeError(f"Cannot determine Tableau script for return type for function at '{self.path}': {self.return_info.type}")
         else:
             tableau_func = tableau_funcs[self.return_info.type]
 

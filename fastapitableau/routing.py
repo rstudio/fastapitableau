@@ -27,9 +27,13 @@ class TableauRoute(APIRoute):
             data = body["data"]
             if len(data) == 1:
                 _body = list(data.values())[0]
-            elif len(data) > 1:
-                new_keys = [param.name for param in self.dependant.body_params]
+            elif len(data) > 1 and "_arg1" in data.keys():
+                new_keys: Dict[str, str] = {}
+                for i, param in enumerate(self.dependant.body_params):
+                    new_keys["_arg" + str(i + 1)] = param.name
                 _body = replace_dict_keys(data, new_keys)
+            else:
+                _body = data
             event["body"] = bytes(json.dumps(_body), encoding="utf-8")
 
         async def _receive():

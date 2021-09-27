@@ -19,9 +19,13 @@ def rewrite_tableau_openapi(
         print("Rewriting " + path_name)
 
         path = openapi["paths"][path_name]
-        path_schema = path["post"]["requestBody"]["content"]["application/json"][
-            "schema"
-        ]
+        print(path)
+        request_body = path.get("post").get("requestBody")
+
+        if request_body is None:
+            continue  # We skip rewriting functions that just take the whole request
+
+        path_schema = request_body["content"]["application/json"]["schema"]
 
         if "$ref" not in path_schema.keys():
             # Do some moving around of elements to make the single field appear as a referenced schema
@@ -59,15 +63,14 @@ def rewrite_tableau_openapi(
         schema = openapi["components"]["schemas"][schema_name]
 
         # Generate a list of the expected Tableau labels. If it is in `required`, relabel it there, and add it to the list of new keys.
-        new_keys = []
+        new_keys: Dict[str, str] = {}
         for i, key in enumerate(schema["properties"].keys()):
             new_key_name = "_arg" + str(i + 1)
-            new_keys.append(new_key_name)
+            new_keys[key] = new_key_name
             schema["required"] = [
                 x if x != key else new_key_name for x in schema["required"]
             ]
         schema["properties"] = replace_dict_keys(schema["properties"], new_keys)
-
         tab_schema = {
             "title": tab_schema_name,
             "required": ["script", "data"],
