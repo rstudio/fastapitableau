@@ -1,13 +1,13 @@
-from typing import Dict, List
+from typing import Dict
 
 from fastapi import Request
 
 
-def replace_dict_keys(d: Dict, new_keys: List):
-    old_keys = sorted(d.keys())
-    for old, new in zip(old_keys, new_keys):
-        d[new] = d.pop(old)
-    return d
+def replace_dict_keys(old_dict: Dict, new_keys: Dict[str, str]):
+    new_dict: Dict = {}
+    for old, new in new_keys.items():
+        new_dict[new] = old_dict[old]
+    return new_dict
 
 
 def remove_prefix(text, prefix):
