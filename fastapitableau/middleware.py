@@ -22,7 +22,20 @@ class TableauExtensionMiddleware:
 
     @staticmethod
     async def rewrite_scope_path(scope: Dict, receive: Receive) -> Tuple[Dict, Receive]:
-        event = await receive()
+        # Consume and gather event body
+        message_body = b""
+        more_body = True
+        while more_body:
+            message = await receive()
+            message_body += message.get("body", b"")
+            more_body = message.get("more_body", False)
+
+        event = {
+            "type": message.get("type", "http.request"),
+            "body": message_body,
+            "more_body": more_body,
+        }
+
         print(event)
 
         body = json.loads(event["body"])
