@@ -71,7 +71,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
         messages = "\n\n---\n\n".join(message_list)
         return messages
 
-    # Call Connect server's API to get settings
+    # Call RStudio Connect API to get server settings
     settings_url = str(connect_server) + "__api__/server_settings"
 
     headers = {"Authorization": "Key " + str(connect_api_key)}
