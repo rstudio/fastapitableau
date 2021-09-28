@@ -326,8 +326,6 @@ def test_rewrite_single_path(openapi_schema, tableau_openapi_schema):
     # Test rewriting /paste
     rewritten_paste = rewrite_tableau_openapi(openapi_schema, ["/paste"])
 
-    print(rewritten_paste)
-
     # Assert that /capitalize has not been rewritten
     assert (
         rewritten_paste["paths"]["/capitalize"]

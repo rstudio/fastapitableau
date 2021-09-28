@@ -19,15 +19,36 @@ class TableauRoute(APIRoute):
 
     async def rewrite_request_body(self, request: Request) -> Request:
         # Extract new, rename args
-        event = await request.receive()
-        body = json.loads(event["body"])
+        message_body = b""
+        more_body = True
+        while more_body:
+            message = await request.receive()
+            message_body += message.get("body", b"")
+            more_body = message.get("more_body", False)
+
+        event = {
+            "type": message.get("type", "http.request"),
+            "body": message_body,
+            "more_body": more_body,
+        }
+        try:
+            body = json.loads(event["body"])
+        except Exception as e:
+            print("Failed to parse event body as JSON: {event}")
+            print(e)
+            raise e
 
         # TODO: Better way to detect Tableau origin? Custom header if it is sent to /evaluate maybe?
         if isinstance(body, Dict) and set(body.keys()) == {"script", "data"}:
             data = body["data"]
             if len(data) == 1:
                 _body = list(data.values())[0]
-            elif len(data) > 1 and "_arg1" in data.keys():
+            elif (
+                len(data) > 1
+                and "_arg1" in data.keys()
+                and len(self.dependant.body_params) > 0
+            ):
+                # We only perform this replacement if there are more than zero body params. Otherwise, we will pass through the `data` object with no renaming, so the endpoint can define functions in terms of Tableau arg names.
                 new_keys: Dict[str, str] = {}
                 for i, param in enumerate(self.dependant.body_params):
                     new_keys["_arg" + str(i + 1)] = param.name

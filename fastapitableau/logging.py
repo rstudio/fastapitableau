@@ -7,7 +7,7 @@ log.setLevel(getattr(logging, os.environ.get("LOG_LEVEL", "INFO").upper()))
 logging.basicConfig(format="%(message)s", stream=sys.stdout)
 
 
-class VerboseLoggingMiddleware:
+class VerboseLoggingMiddleware:  # pragma: no cover
     def __init__(self, app):
         self.app = app
         log.setLevel(logging.DEBUG)
