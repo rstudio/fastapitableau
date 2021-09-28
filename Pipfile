@@ -25,6 +25,7 @@ typed-ast = "*"
 types-requests = "*"
 types-setuptools = "*"
 twine = "*"
+build = "*"
 
 [pipenv]
 allow_prereleases = true
