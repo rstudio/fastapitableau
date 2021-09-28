@@ -36,8 +36,6 @@ class TableauExtensionMiddleware:
             "more_body": more_body,
         }
 
-        print(event)
-
         body = json.loads(event["body"])
         target_path = body["script"]
 

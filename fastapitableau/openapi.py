@@ -19,7 +19,6 @@ def rewrite_tableau_openapi(
         print("Rewriting " + path_name)
 
         path = openapi["paths"][path_name]
-        print(path)
         request_body = path.get("post").get("requestBody")
 
         if request_body is None:
