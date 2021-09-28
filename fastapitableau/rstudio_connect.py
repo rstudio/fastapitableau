@@ -29,7 +29,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
     message_list: List[str] = []
 
     connect_server = environ.get("CONNECT_SERVER")
-    # TODO DEBUG: Print CONNECT_SERVER variable
+    # Debug message: Print CONNECT_SERVER variable
 
     if connect_server is None:
         message_list.append(
@@ -40,7 +40,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
             "- Have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server.,\n"
             "- Use the application settings for your content within the RStudio Connect dashboard to define the `CONNECT_SERVER` environment variable. It should be set to a reachable https or http address for the server.\n"
         )
-        # TODO DEBUG: Add a message if CONNECT_SERVER not defined
+        # Debug message: Add a message if CONNECT_SERVER not defined
 
     if urlparse(connect_server).scheme is None:
         message_list.append(
@@ -51,11 +51,10 @@ def warning_message() -> Optional[str]:  # noqa: C901
             "- Have your system administrator confirm that `Server.Address` has been configured with the proper format within the `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
             "- Use the application settings for your content within the RStudio Connect dashboard to define the CONNECT_SERVER` environment variable with the proper protocol.\n"
         )
-        # DEBUG: If server doesn't specify https:// or http://
+        # Debug message: If server doesn't specify https:// or http://
 
     connect_api_key = environ.get("CONNECT_API_KEY")
-    # TODO
-    # DEBUG: Print API key variable
+    # Debug message: Print API key variable
 
     if connect_api_key is None:
         message_list.append(
@@ -66,14 +65,13 @@ def warning_message() -> Optional[str]:  # noqa: C901
             "- Have your administrator enable the `Applications.DefaultAPIKeyEnv` setting within the `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
             "- Create an API key yourself and use the application settings for your content within the RStudio Connect dashboard to set the the `CONNECT_API_KEY` variable to its value.\n"
         )
-        # TODO
-        # DEBUG: Add a message if API key not defined
+        # Debug message
 
     if len(message_list) != 0:
         messages = "\n\n---\n\n".join(message_list)
         return messages
 
-    # call API to see if thing is enabled.
+    # Call Connect server's API to get settings
     settings_url = str(connect_server) + "__api__/server_settings"
 
     headers = {"Authorization": "Key " + str(connect_api_key)}
@@ -96,28 +94,26 @@ def warning_message() -> Optional[str]:  # noqa: C901
 
     if response.status_code != 200:
         message_list.append(
-            f"### API request to {connect_server} has failed with error: TODO\n"
+            f"### API request to {connect_server} has failed with error: {response.text}\n"
             "\n"
             "Possible Solutions:\n"
             "\n"
             "- If you have specified an API_KEY, confirm it is valid.\n"
             f"- Confirm the server can be reached at {connect_server}.\n"
-            "- TODO: Message about enabling self-signed certificates.\n"
-            "- TODO: There are two error messages in here. One on line 137.\n"
         )
-        # TODO: DEBUG about how we can't get status
+        # Debug message
 
     else:
         server_settings = response.json()
         if "tableau_integration_enabled" not in server_settings.keys():
             message_list.append(
-                "### Tableau Integration Feature Flag is not available on the RStudio Connect server. Current server is version: TODO rework\n"
+                "### Tableau Integration Feature Flag is not available on the RStudio Connect server.\n"
                 "\n"
                 "Possible Solution:\n"
                 "\n"
                 "- Please upgrade to the latest version of RStudio Connect.\n"
             )
-            # TODO: Debug
+            # Debug message
         elif server_settings["tableau_integration_enabled"] is False:
             message_list.append(
                 "Tableau Integration has been disabled on the RStudio Connect server\n"
@@ -126,7 +122,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
                 "\n"
                 "- Please ask your administrator to set `TableauIntegration.Enabled` = `true` within `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
             )
-            # TODO: debug
+            # Debug message
 
     if len(message_list) != 0:
         print(message_list)

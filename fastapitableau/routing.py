@@ -38,7 +38,6 @@ class TableauRoute(APIRoute):
             print(e)
             raise e
 
-        # TODO: Better way to detect Tableau origin? Custom header if it is sent to /evaluate maybe?
         if isinstance(body, Dict) and set(body.keys()) == {"script", "data"}:
             data = body["data"]
             if len(data) == 1:
