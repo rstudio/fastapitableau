@@ -53,7 +53,7 @@ def paste(first: List[str], second: List[str]) -> List[str]:
     description="A function that adds a number to a list of numbers. This is intended to test query parameters.",
     response_description="Numbers with added number",
 )
-def sum(numbers: List[float], multiplier: float) -> List[float]:
+def multiply(numbers: List[float], multiplier: float) -> List[float]:
     result = [i * multiplier for i in numbers]
     return result
 
