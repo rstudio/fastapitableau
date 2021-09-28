@@ -3,8 +3,8 @@ from typing import List
 from fastapitableau import FastAPITableau
 
 app = FastAPITableau(
-    title="Simple Example",
-    description="A *simple* example FastAPITableau app.",
+    title="Simple FastAPI Tableau Extension",
+    description="A very example FastAPITableau app.",
     version="0.1.0",
 )
 
@@ -21,7 +21,7 @@ def paste(first: List[str], second: List[str]) -> List[str]:
     return result
 
 
-@app.post("/sum")
-def sum(numbers: List[float]) -> List[float]:
-    summed = sum(numbers)
-    return summed
+@app.post("/multiply")
+def multiply(numbers: List[float], multiplier: float) -> List[float]:
+    result = [i * multiplier for i in numbers]
+    return result

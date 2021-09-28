@@ -77,6 +77,6 @@ def info(request: Request):
         # "creation_time": "0",
         # "state_path": "e:\\dev\\server\\server\\server",
         "server_version": "0.0.1",
-        "name": "Server",  # TODO: Make this use the application name
+        "name": request.app.title,
         "versions": {"v1": {"features": {}}},
     }
