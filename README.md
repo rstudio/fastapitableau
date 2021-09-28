@@ -1,5 +1,7 @@
 # FastAPITableau
 
+[![codecov](https://codecov.io/gh/rstudio/fastapitableau/branch/main/graph/badge.svg?token=E206DENI3A)](https://codecov.io/gh/rstudio/fastapitableau)
+
 FastAPITableau lets you call external Python code from Tableau workbooks via [Tableau Analytics
 Extensions](https://tableau.github.io/analytics-extensions-api/). To do this, you write an API using [FastAPI](https://fastapi.tiangolo.com), with some minor modifications. If you aren't already familiar with FastAPI, we suggest you start with their [tutorial](https://fastapi.tiangolo.com/tutorial/). 
 
