@@ -25,3 +25,7 @@ Pipfile.lock
 .env
 .envrc
 .tool-versions
+
+# Coverage artifacts
+/htmlcov/
+coverage.xml
