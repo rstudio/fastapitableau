@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from .main import app, make_data
@@ -78,3 +79,20 @@ def test_variadic_endpoint():
         response.json()
         == "{'_arg1': ['big', 'small', 'fluffy'], '_arg2': ['dog', 'cat', 'bunny']}"
     )
+
+
+@pytest.mark.parametrize(
+    "path,content",
+    [
+        ("/", "Documentation for this API"),
+        (
+            "setup_tableau",
+            "Configure Tableau to access extensions hosted on RStudio Connect",
+        ),
+        ("tableau_usage", "SCRIPT_STR(&#34;/capitalize&#34;, text)"),
+    ],
+)
+def test_tableau_name_for_python_type2(path, content):
+    response = client.get(path)
+    assert response.status_code == 200
+    assert content in response.text
