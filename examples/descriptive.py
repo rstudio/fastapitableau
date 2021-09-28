@@ -3,8 +3,8 @@ from typing import List
 from fastapitableau import FastAPITableau
 
 app = FastAPITableau(
-    title="Fancy Example",
-    description="A *fancier* example FastAPITableau app.",
+    title="Fancier FastAPI Tableau Extension",
+    description="A *fancier* example FastAPITableau app, with more descriptive metadata",
     version="0.1.0",
 )
 
@@ -12,7 +12,7 @@ app = FastAPITableau(
 @app.post(
     "/capitalize",
     summary="Capitalize a list of strings",
-    # description="Capitalize each item in a list of strings"
+    description="Capitalize each item in a list of strings",
 )
 def capitalize(text: List[str]) -> List[str]:
     capitalized = [t.upper() for t in text]
@@ -36,11 +36,11 @@ def paste(first: List[str], second: List[str]) -> List[str]:
 
 
 @app.post(
-    "/add",
-    summary="Add a number to a list of numbers",
-    description="A function that adds a number to a list of numbers. This is intended to test query parameters.",
-    response_description="Numbers with added number",
+    "/multiply",
+    summary="Multiply some data by a number",
+    description="A function that multiplies a list of data by a number. The multiplier is provided as a query parameter.",
+    response_description="Multiplied numbers",
 )
-def sum(numbers: List[float], to_add: float) -> List[float]:
-    result = [i + to_add for i in numbers]
+def multiply(numbers: List[float], multiplier: float) -> List[float]:
+    result = [i * multiplier for i in numbers]
     return result
