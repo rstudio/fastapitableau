@@ -15,12 +15,8 @@ import fastapitableau.user_guide as user_guide
         ("str", "String"),
         ("int", "Integer (whole number)"),
         ("float", "Real (decimal number)"),
+        ("CustomType", "<Warning: No equivalent Tableau type for 'CustomType'>"),
     ],
 )
 def test_tableau_name_for_python_type2(python_type, expected):
     assert user_guide.tableau_name_for_python_type(python_type) == expected
-
-
-def test_custom_type_error():
-    with pytest.raises(TypeError):
-        user_guide.tableau_name_for_python_type("CustomType")

@@ -36,7 +36,13 @@ class TableauExtensionMiddleware:
             "more_body": more_body,
         }
 
-        body = json.loads(event["body"])
+        try:
+            body = json.loads(event["body"])
+        except Exception as e:
+            print("Failed to parse event body as JSON: {event}")
+            print(e)
+            raise e
+
         target_path = body["script"]
 
         scope["path"] = target_path
