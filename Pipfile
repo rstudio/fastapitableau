@@ -24,6 +24,7 @@ ipython = "*"
 typed-ast = "*"
 types-requests = "*"
 types-setuptools = "*"
+twine = "*"
 
 [pipenv]
 allow_prereleases = true
