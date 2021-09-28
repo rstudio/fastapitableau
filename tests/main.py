@@ -1,8 +1,18 @@
+import json
 from typing import Dict, List
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 
 from fastapitableau import FastAPITableau
+
+
+def make_data(endpoint: str, data: List) -> str:
+    body = {
+        "script": endpoint,
+        "data": {"_arg" + str(i + 1): elem for i, elem in enumerate(data)},
+    }
+    return json.dumps(body)
+
 
 app = FastAPITableau(
     title="Example API",
@@ -64,3 +74,13 @@ def fail(text: List[str]) -> None:
 )
 def weird_type(text: List[Dict]) -> List[str]:
     raise HTTPException(status_code=420, detail="This didn't work")
+
+
+@app.post(
+    "/variadic",
+    summary="Fails and raises an HTTP Exception",
+    # description="Capitalize each item in a list of strings"
+)
+async def variadic(request: Request) -> Dict[str, List[str]]:
+    result = await request.json()
+    return result
