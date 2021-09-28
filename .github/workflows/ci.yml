@@ -46,7 +46,7 @@ jobs:
     - name: Generate coverage report
       if: ${{ matrix.python-version == 3.9 }}
       run: |
-        pytest --cov=./ --cov-report=xml
+        pipenv run pytest --cov=./ --cov-report=xml
 
     - name: Upload coverage to Codecov
       if: ${{ matrix.python-version == 3.9 }}
