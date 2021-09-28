@@ -44,6 +44,8 @@ class TableauExtensionMiddleware:
             raise e
 
         target_path = body["script"]
+        if target_path[0] != "/":
+            target_path = "/" + target_path
 
         scope["path"] = target_path
         scope["raw_path"] = bytes(target_path, encoding="utf-8")
