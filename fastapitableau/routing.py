@@ -31,7 +31,12 @@ class TableauRoute(APIRoute):
             "body": message_body,
             "more_body": more_body,
         }
-        body = json.loads(event["body"])
+        try:
+            body = json.loads(event["body"])
+        except Exception as e:
+            print("Failed to parse event body as JSON: {event}")
+            print(e)
+            raise e
 
         # TODO: Better way to detect Tableau origin? Custom header if it is sent to /evaluate maybe?
         if isinstance(body, Dict) and set(body.keys()) == {"script", "data"}:
