@@ -54,7 +54,7 @@ def capitalize(text: List[str]) -> List[str]:
 
 If you put this code in a file named `simple.py` in your terminal's working directory, you can serve it locally using [Uvicorn](https://www.uvicorn.org), by invoking `uvicorn simple:app --reload`.
 
-### Tableau FastAPI extensions support a limited set of data model features
+### FastAPI Tableau extensions support a limited set of data model features
 
 FastAPI Tableau extensions have a few constraints compared to standard FastAPI apps. Some of these are due to the ways that Tableau sends data. We'll describe known limitations here, and how to work within them.
 
