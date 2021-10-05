@@ -2,8 +2,6 @@ from typing import Any, Dict
 
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.openapi.utils import get_flat_models_from_routes
-from pydantic.schema import get_model_name_map
 from starlette.exceptions import HTTPException
 
 from fastapitableau.exception_handlers import (
@@ -38,10 +36,6 @@ class FastAPITableau(FastAPI):
         ] = tableau_request_validation_exception_handler
         self.exception_handlers[Exception] = tableau_general_exception_handler
         self.middleware_stack = self.build_middleware_stack()
-
-        # Generate and store Pydantic model details
-        self.flat_models = get_flat_models_from_routes(self.routes)
-        self.model_name_map = get_model_name_map(self.flat_models)
 
     def openapi(self) -> Dict[str, Any]:
         orig_desc = self.description
