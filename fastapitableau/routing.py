@@ -9,7 +9,7 @@ from fastapi.routing import APIRoute
 from pydantic.error_wrappers import ErrorWrapper
 from pydantic.schema import field_schema, get_model_name_map
 
-from .utils import remove_prefix, replace_dict_keys
+from .utils import event_from_receive, remove_prefix, replace_dict_keys
 
 
 class TableauRoute(APIRoute):
@@ -49,7 +49,7 @@ class TableauRoute(APIRoute):
 
         return custom_route_handler
 
-    async def validate_request_body(self, received_body: Dict[str, Any]):
+    async def body_will_validate(self, received_body: Dict[str, Any]):
         """
         This function tries to process the request body using FastAPI's own function, and returns False if it fails to process. It's potentially expensive, but could be useful as a stricter heuristic for deciding whether to rewrite the request body.
         """
@@ -60,30 +60,21 @@ class TableauRoute(APIRoute):
 
     async def rewrite_request_body(self, request: Request) -> Request:  # noqa: C901
         # Consume entire message
-        message_body = b""
-        more_body = True
-        while more_body:
-            message = await request.receive()
-            message_body += message.get("body", b"")
-            more_body = message.get("more_body", False)
-
-        event = {
-            "type": message.get("type", "http.request"),
-            "body": message_body,
-            "more_body": more_body,
-        }
+        event = await event_from_receive(request.receive)
         try:
             received_body = json.loads(event["body"])
         except Exception as e:
+            print("Failed to parse event body as JSON: {event}")
+            print(e)
             raise e
 
         # Here, we only want to operate on Tableau requests. We have a few options.
         # 1. Duck typing, which is what the main branch does right now. It checks to see if this a dict and contains the keys "script" and "data".
         # 2. Validate. Try to process the body with FastAPI's args and see if it works. If it doesn't, try this method.
         # 3. Use headers.
-        request_will_validate = await self.validate_request_body(received_body)
+        body_will_validate = await self.body_will_validate(received_body)
         if (
-            not request_will_validate
+            not body_will_validate
             and isinstance(received_body, Dict)
             and set(received_body.keys()) == {"script", "data"}
         ):
