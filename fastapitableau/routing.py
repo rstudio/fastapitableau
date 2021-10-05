@@ -53,7 +53,6 @@ class TableauRoute(APIRoute):
                 raise e
 
             _body = await self.ensure_request_body(body)
-
             event["body"] = bytes(json.dumps(_body), encoding="utf-8")
 
             async def _receive():
@@ -74,6 +73,7 @@ class TableauRoute(APIRoute):
         if body_will_validate:
             _body = body
         elif isinstance(body, Dict) and set(body.keys()) == {"script", "data"}:
+            # It looks like a Tableau request.
             data = body["data"]
             if self.body_schema["type"] == "array":
                 # We can handle a single arg from Tableau, raising it up a level.
