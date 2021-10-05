@@ -7,11 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Added support for using Pydantic schemas in endpoints that receive input from Tableau.
-
 ### Added
 
 - This changelog.
+- Support for using Pydantic schemas in endpoints that receive input from Tableau.
 
 ## [1.0.0] - 2021-09-29
 
