@@ -60,7 +60,7 @@ FastAPI Tableau extensions have a few constraints compared to standard FastAPI a
 
 **All parameters that receive data from Tableau must be [list fields](https://fastapi.tiangolo.com/tutorial/body-nested-models/?h=list#list-fields-with-type-parameter).** Tableau sends its data in JSON lists in the request body, which FastAPI converts to equivalent Python types. Compatible types are `List[str]`, `List[float]`, `List[int]`, and `List[bool]`. You can define these parameters as arguments to an endpoint function, or as fields in a Pydantic model.
 
-**Your endpoints must also return one of these compatible list types, and it must be the same length as the inputs.** This requirement is not enforced by FastAPI Tableau, but Tableau maps the data sent back by an extension into a table column.
+**Your endpoints must also return data in a compatible list types, and the data returned must be the same length as the inputs received.** This requirement is not enforced by FastAPI Tableau, but Tableau maps the data sent back by an extension into a table column.
 
 **You can use query parameters in your functions by declaring singular (non-`List`) arguments.** FastAPI assumes that any `bool`, `float`, `int`, or `str` variables are query parameters. You can use these in the `script` argument when calling the API from Tableau.
 
