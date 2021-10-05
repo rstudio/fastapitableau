@@ -58,13 +58,11 @@ If you put this code in a file named `simple.py` in your terminal's working dire
 
 FastAPI Tableau extensions have a few constraints compared to standard FastAPI apps. Some of these are due to the ways that Tableau sends data. We'll describe known limitations here, and how to work within them.
 
-**You cannot use Pydantic models to describe your endpoints' input parameters. Put the arguments in the function definition directly instead.** FastAPI Tableau currently only supports declaring inputs in a function definition, as shown in the examples on this page. We plan to support Pydantic models in the near future. However, these will be subject to the same type and complexity limitations as function arguments, described below.
+**All parameters that receive data from Tableau must be [list fields](https://fastapi.tiangolo.com/tutorial/body-nested-models/?h=list#list-fields-with-type-parameter).** Tableau sends its data in JSON lists in the request body, which FastAPI converts to equivalent Python types. Compatible types are `List[str]`, `List[float]`, `List[int]`, and `List[bool]`. You can define these parameters as arguments to an endpoint function, or as fields in a Pydantic model.
 
-**All parameters that receive data from Tableau must be [list fields](https://fastapi.tiangolo.com/tutorial/body-nested-models/?h=list#list-fields-with-type-parameter).** Tableau sends its data in JSON lists in the request body, which FastAPI converts to equivalent Python types. Compatible types are `List[str]`, `List[float]`, `List[int]`, and `List[bool]`.
+**Your endpoints must also return one of these compatible list types, and it must be the same length as the inputs.** This requirement is not enforced by FastAPI Tableau, but Tableau maps the data sent back by an extension into a table column.
 
-**For compatibility with Tableau, your endpoints should also return one of these compatible list types.** Tableau expects to get back data of the same length as the input data it sent.
-
-**You can add query parameters to your functions by declaring singular (non-`List`) arguments.** FastAPI assumes that any `bool`, `float`, `int`, or `str` variables are query parameters. You can use these in the `script` argument when calling the API from Tableau.
+**You can use query parameters in your functions by declaring singular (non-`List`) arguments.** FastAPI assumes that any `bool`, `float`, `int`, or `str` variables are query parameters. You can use these in the `script` argument when calling the API from Tableau.
 
 Putting this all together, you can have as many list and singular parameters as you want, declared in the function definition. List parameters will come from Tableau data objects, and singular parameters can be set in the Tableau calculation.
 
@@ -121,7 +119,7 @@ You can copy and paste the usage example (the `SCRIPT_*` command) into a calcula
 
 ### Working with Tableau data
 
-We've found that a few practices in Tableau ensure that the data you pass to a plumbertableau extension is sent correctly.
+We've found that a few practices in Tableau ensure that the data you pass to a Tableau extension is sent correctly.
 
 - You must turn off "Aggregate Measures" under the "Analysis" menu for Tableau to pass the correct values to the extension. If this setting is on, Tableau will send aggregated data to the extension, which may cause inaccuracies in computations.
 - With this value off, calculated fields don't allow you to pass raw values directly to an extension. Those values must be wrapped in an aggregating function. Since we've turned "Aggregate Measures" off, these functions won't actually aggregate the data. We've had success using `ATTR([VALUE_NAME])`.
