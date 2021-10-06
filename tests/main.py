@@ -2,6 +2,7 @@ import json
 from typing import Dict, List
 
 from fastapi import HTTPException, Request
+from pydantic import BaseModel
 
 from fastapitableau import FastAPITableau
 
@@ -61,7 +62,6 @@ def multiply(numbers: List[float], multiplier: float) -> List[float]:
 @app.post(
     "/fail",
     summary="Fails and raises an HTTP Exception",
-    # description="Capitalize each item in a list of strings"
 )
 def fail(text: List[str]) -> None:
     raise HTTPException(status_code=420, detail="This didn't work")
@@ -70,7 +70,6 @@ def fail(text: List[str]) -> None:
 @app.post(
     "/weird_type",
     summary="This endpoint has a Tableau-incompatible type signature.",
-    # description="Capitalize each item in a list of strings"
 )
 def weird_type(text: List[Dict]) -> List[str]:
     raise HTTPException(status_code=420, detail="This didn't work")
@@ -79,8 +78,29 @@ def weird_type(text: List[Dict]) -> List[str]:
 @app.post(
     "/variadic",
     summary="Fails and raises an HTTP Exception",
-    # description="Capitalize each item in a list of strings"
 )
 async def variadic(request: Request) -> Dict[str, List[str]]:
     result = await request.json()
+    return result
+
+
+# Pydantic endpoints
+class PasteModel(BaseModel):
+    text: List[str]
+
+
+@app.post("/capitalize_pyd")
+def capitalize_pyd(item: PasteModel) -> List[str]:
+    capitalized = [t.upper() for t in item.text]
+    return capitalized
+
+
+class CapitalizeModel(BaseModel):
+    first: List[str]
+    second: List[str]
+
+
+@app.post("/paste_pyd")
+def paste_pyd(item: CapitalizeModel) -> List[str]:
+    result = [a + " " + b for a, b in zip(item.first, item.second)]
     return result

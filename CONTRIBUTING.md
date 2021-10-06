@@ -30,3 +30,11 @@ pre-commit install
 If you get an error from `black` or `isort`, the offending file will be modified, so you can just stage the newly-modified file and try the commit again.
 
 You can skip pre-commit hooks by running running `git commit` with the `no-verify` or `-n` option. Beware, the same things are checked in CI, so you might run into issues down the road.
+
+### `just`
+
+This project uses `just` to run commands.
+
+The just recipe `serve` serves an app from a file named in the command. By default. It has three positional arguments: `filename`, `app`, and `app_dir`. Only the first argument is required. You can use the second argument to specify a differently named object in a file. The third argument specifies the directory to look in. By default, it's taken from an environment variable named `APP_DIR`, which `just` will load from a file named `.env` if present.
+
+You pass arguments to just in order, so if I wanted to manually specify a different directory, I'd have to pass in the `app` argument too, as in: `just serve server_file app ../example_directory`.
