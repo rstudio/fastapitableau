@@ -26,3 +26,6 @@ open_command := if os() == "macos" { "open" } else { "xdg-open" }
 cov-report:
 	pipenv run pytest --cov=fastapitableau --cov-report=html tests/
 	{{open_command}} htmlcov/index.html
+
+docs-serve:
+	pipenv run mkdocs serve
