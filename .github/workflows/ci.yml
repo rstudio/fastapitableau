@@ -56,5 +56,6 @@ jobs:
         files: ./coverage.xml
         flags: unittests
 
-    - name: Update mkdocs
+    - name: Publish mkdocs
+      if: github.ref == 'refs/heads/main'
       run: just docs-publish
