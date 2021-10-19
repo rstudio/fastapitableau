@@ -33,3 +33,6 @@ cov-report:
 
 docs-serve:
 	pipenv run mkdocs serve
+
+docs-publish:
+	pipenv run mkdocs gh-deploy
