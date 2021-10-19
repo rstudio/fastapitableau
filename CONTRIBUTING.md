@@ -19,7 +19,9 @@ Pipenv will create a virtual environment, which you can start in a sub-shell by 
 
 ### Check code with pre-commit hooks
 
-This project runs a linter and tests in CI. To avoid getting unpleasant errors *after* you've committed stuff, we also have pre-commit hooks which check (and if possible fix) formatting and a few other things as you commit, so you don't have to wait for CI to fail.
+We run linting and testing in CI (only on pull requests to `main` and pushes to `main` or tagged branches, not with every commit.)
+
+To avoid getting unpleasant errors in CI *after* you've committed stuff, we also have pre-commit hooks which check (and if possible fix) formatting and a few other things as you commit, so you don't have to wait for CI to fail.
 
 You need to run the following in your terminal to add the pre-commit hooks to your repo.
 
