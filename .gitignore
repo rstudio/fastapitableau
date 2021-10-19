@@ -29,3 +29,6 @@ Pipfile.lock
 # Coverage artifacts
 /htmlcov/
 coverage.xml
+
+
+/site/

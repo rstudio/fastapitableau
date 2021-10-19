@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="640px" src="docs/img/fastapi-tableau.png" alt='FastAPI Tableau'>
+  <img width="640px" src="img/fastapi-tableau.png" alt='FastAPI Tableau'>
 </p>
 
 <p align="center">

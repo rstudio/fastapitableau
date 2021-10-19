@@ -26,6 +26,7 @@ types-requests = "*"
 types-setuptools = "*"
 twine = "*"
 build = "*"
+mkdocs-material = "*"
 
 [pipenv]
 allow_prereleases = true
