@@ -2,7 +2,7 @@
 
 ## The setup
 
-### Pipenv
+### Manage your dev Python environment with Pipenv
 
 This project uses [Pipenv](https://pipenv.pypa.io/en/latest/).
 
@@ -17,7 +17,7 @@ I *think* this'll install all the packages *and* dev packages listed in the Pipf
 
 Pipenv will create a virtual environment, which you can start in a sub-shell by running `pipenv shell`.
 
-### Pre-commit hooks
+### Check code with pre-commit hooks
 
 This project runs a linter and tests in CI. To avoid getting unpleasant errors *after* you've committed stuff, we also have pre-commit hooks which check (and if possible fix) formatting and a few other things as you commit, so you don't have to wait for CI to fail.
 
@@ -38,7 +38,7 @@ There are issues where something might fail in CI, even if it passes these check
 
 Within the Pipenv virtualenv, you can run `pre-commit run` to run the checks ahead of time on staged files, or `pre-commit run --all` to run everything. If your Pipenv shell isn't active, you can also type `just pre-commit [--all]`. Which brings me to…
 
-### `just`
+### Run common commands with `just`
 
 This project uses [`just`](https://github.com/casey/just) to run commands. Check the list of available recipes by running `just -l` or `just --list`.
 
