@@ -2,13 +2,17 @@ site_name: FastAPI Tableau
 theme:
   name: material
   palette:
-    - scheme: default
-      primary: white
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: light blue
+      accent: light blue
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
-    - scheme: slate
-      primary: black
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: light blue
+      accent: light blue
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
@@ -20,3 +24,12 @@ theme:
 
 extra:
   generator: false
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+
+repo_url: https://github.com/rstudio/fastapitableau
+repo_name: rstudio/fastapitableau
