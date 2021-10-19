@@ -35,4 +35,8 @@ docs-serve:
 	pipenv run mkdocs serve
 
 docs-publish:
-	pipenv run mkdocs gh-deploy
+	#!/usr/bin/env sh
+	read -p "Are you sure you want to update the docs on GitHub? [y/N] " choice
+	case "$choice" in 
+	  [Yy]* ) pipenv run mkdocs gh-deploy;;
+	esac
