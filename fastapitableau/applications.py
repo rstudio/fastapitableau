@@ -9,11 +9,11 @@ from fastapitableau.exception_handlers import (
     tableau_http_exception_handler,
     tableau_request_validation_exception_handler,
 )
+from fastapitableau.logger import logger
+from fastapitableau.middleware import TableauExtensionMiddleware
 from fastapitableau.openapi import rewrite_tableau_openapi
 from fastapitableau.pages import built_in_pages, statics
-
-from .middleware import TableauExtensionMiddleware
-from .routing import TableauRoute
+from fastapitableau.routing import TableauRoute
 
 
 class FastAPITableau(FastAPI):
@@ -41,6 +41,7 @@ class FastAPITableau(FastAPI):
         orig_desc = self.description
         self.openapi_schema = None
         if self.use_tableau_api_schema:
+            logger.debug("Generating OpenAPI schema for Tableau requests")
             self.description = (
                 orig_desc
                 + """
@@ -54,6 +55,7 @@ class FastAPITableau(FastAPI):
             ]
             self.openapi_schema = rewrite_tableau_openapi(schema, tableau_paths)
         else:
+            logger.debug("Generating OpenAPI schema for standard requests")
             self.description = (
                 orig_desc
                 + """
@@ -72,6 +74,7 @@ info_router = APIRouter()
 
 @info_router.get("/info", include_in_schema=False)
 def info(request: Request):
+    logger.debug("Responding to '/info' request", extra={"scope": request.scope})
     return {
         "description": "FastAPITableau API",
         # "creation_time": "0",

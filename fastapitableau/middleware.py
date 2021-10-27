@@ -3,7 +3,8 @@ from typing import Dict, Tuple
 
 from starlette.types import Receive
 
-from .utils import event_from_receive
+from fastapitableau.logger import logger
+from fastapitableau.utils import event_from_receive
 
 
 class TableauExtensionMiddleware:
@@ -15,8 +16,8 @@ class TableauExtensionMiddleware:
         self.app = app
 
     async def __call__(self, scope, receive, send) -> None:
+        logger.debug("Received request with scope: %s", scope, extra={"scope": scope})
         if scope["type"] == "http" and scope["path"] == "/evaluate":
-            # If we need to handle larger, multipart requests, this is where we should do so.
             _scope, _receive = await self.rewrite_scope_path(scope, receive)
             await self.app(_scope, _receive, send)
         else:
@@ -24,8 +25,9 @@ class TableauExtensionMiddleware:
 
     @staticmethod
     async def rewrite_scope_path(scope: Dict, receive: Receive) -> Tuple[Dict, Receive]:
-
         event = await event_from_receive(receive)
+
+        logger.debug("Received event: %s", event, extra={"scope": scope})
 
         try:
             body = json.loads(event["body"])
@@ -37,6 +39,12 @@ class TableauExtensionMiddleware:
         target_path = body["script"]
         if target_path[0] != "/":
             target_path = "/" + target_path
+
+        logger.debug(
+            "Rewriting request path from '/evaluate' to '%s'.",
+            target_path,
+            extra={"scope": scope},
+        )
 
         scope["path"] = target_path
         scope["raw_path"] = bytes(target_path, encoding="utf-8")
