@@ -1,9 +1,10 @@
 import logging
 import os
 import sys
-from typing import MutableMapping, Optional
+from typing import Optional
 
 from starlette.datastructures import Headers
+from starlette.types import Scope
 
 
 class ScopeAdapter(logging.LoggerAdapter):
@@ -23,8 +24,8 @@ class ScopeAdapter(logging.LoggerAdapter):
             return prefix + msg, kwargs
 
 
-def get_correlation_id(scope: MutableMapping) -> Optional[str]:
-    headers = Headers(scope=scope)
+def get_correlation_id(scope: Scope = None, headers: Headers = None) -> Optional[str]:
+    headers = Headers(scope=scope, headers=headers)
     correlation_id_keys = ["x-rs-correlation-id", "x-correlation-id"]
     for key in correlation_id_keys:
         if key in headers.keys():
