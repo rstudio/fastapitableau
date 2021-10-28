@@ -115,7 +115,7 @@ class TableauRoute(APIRoute):
                     )
                     raise RequestValidationError([ErrorWrapper(error, "body")])
             logger.debug(
-                "Rewriting body for Tableau request to %s: %s",
+                "Rewriting body for Tableau request to '%s': %s",
                 self.path,
                 _body,
                 extra={"scope": scope},
