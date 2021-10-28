@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - This changelog.
 - Support for using Pydantic schemas in endpoints that receive input from Tableau.
+- Added support for verbose debug logging when the environment variable `FASTAPITABLEAU_LOG_LEVEL` is set to `DEBUG`.
+
+### Fixed
+
+- Package metadata incorrectly said that the license was "Proprietary", but the license is actually MIT.
 
 ## [1.0.0] - 2021-09-29
 
