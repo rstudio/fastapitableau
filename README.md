@@ -131,3 +131,7 @@ We've found that a few practices in Tableau ensure that the data you pass to a T
 
 - You must turn off "Aggregate Measures" under the "Analysis" menu for Tableau to pass the correct values to the extension. If this setting is on, Tableau will send aggregated data to the extension, which may cause inaccuracies in computations.
 - With this value off, calculated fields don't allow you to pass raw values directly to an extension. Those values must be wrapped in an aggregating function. Since we've turned "Aggregate Measures" off, these functions won't actually aggregate the data. We've had success using `ATTR([VALUE_NAME])`.
+
+## Debug logging
+
+To enable verbose debug logging, set the environment variable `FASTAPITABLEAU_LOG_LEVEL` to `DEBUG`.

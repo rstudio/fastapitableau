@@ -9,6 +9,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from fastapitableau import rstudio_connect
+from fastapitableau.logger import logger
 from fastapitableau.openapi import get_swagger_ui_html
 from fastapitableau.user_guide import extract_routes_info
 from fastapitableau.utils import calc_app_base_url
@@ -39,6 +40,7 @@ async def home(request: Request):
 
 @built_in_pages.get("/setup_tableau", include_in_schema=False)
 async def setup(request: Request):
+    logger.debug("Generating Tableau setup instructions")
     server = os.getenv("CONNECT_SERVER", "")
     parts = urlparse(server)
     # <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
@@ -63,6 +65,7 @@ async def setup(request: Request):
 
 @built_in_pages.get("/tableau_usage", include_in_schema=False)
 async def tableau_usage(request: Request):
+    logger.debug("Generating Tableau usage instructions")
     routes_info = extract_routes_info(
         app=request.app,
         app_base_url=calc_app_base_url(request),

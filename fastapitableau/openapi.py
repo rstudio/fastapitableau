@@ -16,7 +16,6 @@ def rewrite_tableau_openapi(
         rewrite_paths = list(openapi["paths"].keys())
 
     for path_name in rewrite_paths:
-        print("Rewriting " + path_name)
 
         path = openapi["paths"][path_name]
         request_body = path.get("post").get("requestBody")

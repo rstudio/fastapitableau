@@ -1,5 +1,5 @@
 import json
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, MutableMapping, Optional
 
 from fastapi import Request, Response
 from fastapi.dependencies.utils import request_body_to_args
@@ -9,7 +9,8 @@ from fastapi.routing import APIRoute
 from pydantic.error_wrappers import ErrorWrapper
 from pydantic.schema import field_schema, get_model_name_map
 
-from .utils import event_from_receive, remove_prefix, replace_dict_keys
+from fastapitableau.logger import logger
+from fastapitableau.utils import event_from_receive, remove_prefix, replace_dict_keys
 
 
 class TableauRoute(APIRoute):
@@ -48,11 +49,14 @@ class TableauRoute(APIRoute):
             try:
                 body = json.loads(event["body"])
             except Exception as e:
-                print("Failed to parse event body as JSON: {event}")
-                print(e)
+                logger.warning(
+                    "Failed to parse event body as JSON: %s",
+                    event["body"],
+                    extra={"scope": request.scope},
+                )
                 raise e
 
-            _body = await self.ensure_request_body(body)
+            _body = await self.ensure_request_body(body, scope=request.scope)
             event["body"] = bytes(json.dumps(_body), encoding="utf-8")
 
             async def _receive():
@@ -64,7 +68,9 @@ class TableauRoute(APIRoute):
 
         return custom_route_handler
 
-    async def ensure_request_body(self, body: Dict) -> Dict:
+    async def ensure_request_body(
+        self, body: Dict, scope: MutableMapping = None
+    ) -> Dict:
         # Here, we only want to operate on Tableau requests. We have a few options.
         # 1. Duck typing, which is what the main branch does right now. It checks to see if this a dict and contains the keys "script" and "data".
         # 2. Validate. Try to process the body with FastAPI's args and see if it works. If it doesn't, try this method.
@@ -72,6 +78,12 @@ class TableauRoute(APIRoute):
         body_will_validate = await self.body_will_validate(body)
         if body_will_validate:
             _body = body
+            logger.debug(
+                "Not rewriting body for request to '%s': %s",
+                self.path,
+                _body,
+                extra={"scope": scope},
+            )
         elif isinstance(body, Dict) and set(body.keys()) == {"script", "data"}:
             # It looks like a Tableau request.
             data = body["data"]
@@ -102,6 +114,12 @@ class TableauRoute(APIRoute):
                         f"The route {self.name} expects {len(properties)} arguments, but received {len(data)} from Tableau."
                     )
                     raise RequestValidationError([ErrorWrapper(error, "body")])
+            logger.debug(
+                "Rewriting body for Tableau request to '%s': %s",
+                self.path,
+                _body,
+                extra={"scope": scope},
+            )
         return _body
 
     async def body_will_validate(self, body: Dict[str, Any]):

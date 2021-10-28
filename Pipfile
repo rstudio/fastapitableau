@@ -27,6 +27,7 @@ types-setuptools = "*"
 twine = "*"
 build = "*"
 mkdocs-material = "*"
+pytest-asyncio = "*"
 
 [pipenv]
 allow_prereleases = true

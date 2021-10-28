@@ -4,6 +4,8 @@ from urllib.parse import urlparse
 
 import requests
 
+from fastapitableau.logger import logger
+
 
 def check_rstudio_connect() -> bool:
     """Returns True if running in RStudio Connect"""
@@ -16,6 +18,11 @@ def check_rstudio_connect() -> bool:
         environ.get("LOGNAME") == "rstudio-connect",
         environ.get("TMPDIR") == "/opt/rstudio-connect/mnt/tmp",
     ]
+    rstudio_connect = any(checks)
+    if rstudio_connect:
+        logger.debug("We seem to be running in RStudio Connect")
+    else:
+        logger.debug("We don't seem to be running in RStudio Connect")
     return any(checks)
 
 
@@ -31,6 +38,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
     connect_server = environ.get("CONNECT_SERVER")
 
     if connect_server is None:
+        logger.warning("Could not find CONNECT_SERVER environment variable")
         message_list.append(
             "\n### The environment variable `CONNECT_SERVER` is not defined\n"
             "\n"
@@ -41,6 +49,9 @@ def warning_message() -> Optional[str]:  # noqa: C901
         )
 
     if urlparse(connect_server).scheme is None:
+        logger.warning(
+            "The CONNECT_SERVER environment variable doesn't specify https:// or http://"
+        )
         message_list.append(
             f"### Environment Variable `CONNECT_SERVER` (value = `{connect_server}` ) does not specify the protocol (`https://` or `http://`)\n"
             "\n"
@@ -53,6 +64,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
     connect_api_key = environ.get("CONNECT_API_KEY")
 
     if connect_api_key is None:
+        logger.warning("Could not find CONNECT_API_KEY environment variable")
         message_list.append(
             "### The environment variable `CONNECT_API_KEY` is not defined\n"
             "\n"
@@ -66,14 +78,18 @@ def warning_message() -> Optional[str]:  # noqa: C901
         messages = "\n\n---\n\n".join(message_list)
         return messages
 
-    # Call RStudio Connect API to get server settings
-    settings_url = str(connect_server) + "__api__/server_settings"
-
-    headers = {"Authorization": "Key " + str(connect_api_key)}
-
     try:
-        response = requests.get(settings_url, headers=headers, verify=False)
+        # Call RStudio Connect API to get server settings
+        use_http = environ.get("FASTAPITABLEAU_USE_HTTP", "False").title() == "True"
+        if use_http:
+            connect_server = urlparse(connect_server)._replace(scheme="http").geturl()  # type: ignore[arg-type]
+        settings_url = str(connect_server) + "__api__/server_settings"
+        headers = {"Authorization": "Key " + str(connect_api_key)}
+        response = requests.get(settings_url, headers=headers, verify=not use_http)
     except Exception as e:
+        logger.warning(
+            "Unable to access RStudio Connect settings API due to error: %s", e
+        )
         message_list.append(
             f"### API request to {connect_server} has failed with error:\n"
             f"{e}"
@@ -86,35 +102,45 @@ def warning_message() -> Optional[str]:  # noqa: C901
             "."
             "\n- If using HTTPS along with self-signed certificates, you may need to allow the FastAPITableau package to use HTTP instead, by setting the environment variable `FASTAPITABLEAU_USE_HTTP` to `True` in the RStudio Connect application settings."
         )
-
-    if response.status_code != 200:
-        message_list.append(
-            f"### API request to {connect_server} has failed with error: {response.text}\n"
-            "\n"
-            "Possible Solutions:\n"
-            "\n"
-            "- If you have specified an API_KEY, confirm it is valid.\n"
-            f"- Confirm the server can be reached at {connect_server}.\n"
-        )
-
     else:
-        server_settings = response.json()
-        if "tableau_integration_enabled" not in server_settings.keys():
-            message_list.append(
-                "### Tableau Integration Feature Flag is not available on the RStudio Connect server.\n"
-                "\n"
-                "Possible Solution:\n"
-                "\n"
-                "- Please upgrade to the latest version of RStudio Connect.\n"
+        # Only execute if response exists
+        if response.status_code != 200:
+            logger.warning(
+                "Unable to access RStudio Connect settings API with status code: %s",
+                response.status_code,
             )
-        elif server_settings["tableau_integration_enabled"] is False:
             message_list.append(
-                "Tableau Integration has been disabled on the RStudio Connect server\n"
+                f"### API request to {connect_server} has failed with error: {response.text}\n"
                 "\n"
-                "Possible Solution:\n"
+                "Possible Solutions:\n"
                 "\n"
-                "- Please ask your administrator to set `TableauIntegration.Enabled` = `true` within `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
+                "- If you have specified an API_KEY, confirm it is valid.\n"
+                f"- Confirm the server can be reached at {connect_server}.\n"
             )
+        else:
+            server_settings = response.json()
+            if "tableau_integration_enabled" not in server_settings.keys():
+                logger.warning(
+                    "The Tableau integration feature flag is not available on this RStudio Connect server"
+                )
+                message_list.append(
+                    "### Tableau Integration Feature Flag is not available on the RStudio Connect server.\n"
+                    "\n"
+                    "Possible Solution:\n"
+                    "\n"
+                    "- Please upgrade to the latest version of RStudio Connect.\n"
+                )
+            elif server_settings["tableau_integration_enabled"] is False:
+                logger.warning(
+                    "Tableau integration is disabled on this RStudio Connect server"
+                )
+                message_list.append(
+                    "Tableau Integration has been disabled on the RStudio Connect server\n"
+                    "\n"
+                    "Possible Solution:\n"
+                    "\n"
+                    "- Please ask your administrator to set `TableauIntegration.Enabled` = `true` within `rstudio-connect.gcfg` file on the RStudio Connect server.\n"
+                )
 
     if len(message_list) != 0:
         print(message_list)
