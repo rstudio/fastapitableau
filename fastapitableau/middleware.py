@@ -41,7 +41,7 @@ class TableauExtensionMiddleware:
             target_path = "/" + target_path
 
         logger.debug(
-            "Rewriting scope path for Tableau request: '%s'",
+            "Rewriting path for Tableau request: '%s'",
             target_path,
             extra={"scope": scope},
         )
