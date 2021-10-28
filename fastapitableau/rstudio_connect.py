@@ -4,6 +4,8 @@ from urllib.parse import urlparse
 
 import requests
 
+from fastapitableau.logger import logger
+
 
 def check_rstudio_connect() -> bool:
     """Returns True if running in RStudio Connect"""
@@ -67,13 +69,20 @@ def warning_message() -> Optional[str]:  # noqa: C901
         return messages
 
     # Call RStudio Connect API to get server settings
+    use_http = environ.get("FASTAPITABLEAU_USE_HTTP", "FALSE").title() == "True"
+    if use_http:
+        connect_server = urlparse(connect_server)._replace(scheme="http").geturl()  # type: ignore[arg-type]
+        VERIFY = not use_http
     settings_url = str(connect_server) + "__api__/server_settings"
 
     headers = {"Authorization": "Key " + str(connect_api_key)}
 
     try:
-        response = requests.get(settings_url, headers=headers, verify=False)
+        response = requests.get(settings_url, headers=headers, verify=VERIFY)
     except Exception as e:
+        logger.error(
+            "Unable to access RStudio Connect settings API due to error: %s", e
+        )
         message_list.append(
             f"### API request to {connect_server} has failed with error:\n"
             f"{e}"
