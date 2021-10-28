@@ -46,7 +46,7 @@ class FastAPITableau(FastAPI):
                 orig_desc
                 + """
             <br><br>
-            *NOTE: This page's example API requests are formatted like the requests that Tableau will send. They are different from standard web requests, which are documented under "Test Standard Web Requests" in this API's main menu.*
+            *NOTE: This page's example API requests are formatted like the requests that Tableau will send. They are different from standard web requests, which are documented under "Test Standard Web Requests".*
             """
             )
             schema = super().openapi()
@@ -60,7 +60,7 @@ class FastAPITableau(FastAPI):
                 orig_desc
                 + """
             <br><br>
-            *NOTE: This page's example API requests are formatted like standard web requests. They are different from the requests that Tableau will send, which are documented under "Test Tableau-Style Requests" in this API's main menu.*
+            *NOTE: This page's example API requests are formatted like standard web requests. They are different from the requests that Tableau will send, which are documented under "Test Tableau-Style Requests".*
             """
             )
             self.openapi_schema = super().openapi()
