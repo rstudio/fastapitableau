@@ -31,6 +31,22 @@ cov-report:
 	pipenv run pytest --cov=fastapitableau --cov-report=html tests/
 	{{open_command}} htmlcov/index.html
 
+clean-dist:
+	rm -r dist
+
+build:
+	pipenv run python -m build
+
+testpypi-upload:
+	pipenv run python -m twine upload --repository testpypi dist/* --username __token__ --password $TESTPYPI_TOKEN
+
+pypi-upload:
+	#!/usr/bin/env sh
+	read -p "Are you really ready to publish to PyPI? [y/N] " choice
+	case "$choice" in 
+	  [Yy]* ) pipenv run python -m twine upload --repository testpypi dist/* --username __token__ --password $PYPI_TOKEN;;
+	esac
+
 docs-serve:
 	pipenv run mkdocs serve
 
