@@ -58,4 +58,4 @@ jobs:
 
     - name: Publish MkDocs
       if: github.ref == 'refs/heads/main' && matrix.python-version == 3.9
-      run: pipenv run mkdocs gh-deploy
+      run: pipenv run mkdocs gh-deploy --force
