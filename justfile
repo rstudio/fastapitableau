@@ -44,7 +44,7 @@ pypi-upload:
 	#!/usr/bin/env sh
 	read -p "Are you really ready to publish to PyPI? [y/N] " choice
 	case "$choice" in 
-	  [Yy]* ) pipenv run python -m twine upload --repository testpypi dist/* --username __token__ --password $PYPI_TOKEN;;
+	  [Yy]* ) pipenv run python -m twine upload dist/* --username __token__ --password $PYPI_TOKEN;;
 	esac
 
 docs-serve:
