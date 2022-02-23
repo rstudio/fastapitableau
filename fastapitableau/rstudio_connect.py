@@ -100,7 +100,8 @@ def warning_message() -> Optional[str]:  # noqa: C901
             "\n- Confirm there is connectivity between the server itself and the address assigned to it: "
             f"{connect_server}"
             "."
-            "\n- If using HTTPS along with self-signed certificates, you may need to allow the FastAPITableau package to use HTTP instead, by setting the environment variable `FASTAPITABLEAU_USE_HTTP` to `True` in the RStudio Connect application settings."
+            "\n- If using HTTPS with self-signed certificates, you need to tell Python about the location of your certificate file. In RStudio Connect, set the `REQUESTS_CA_BUNDLE` environment variable to the path to your certificate file, in the Vars tab of the Content Settings Panel. "
+            "Note that applications on RStudio Connect cannot access `/etc` directory, so the certificate must be located elsewhere, such as `/opt/python`."
         )
     else:
         # Only execute if response exists

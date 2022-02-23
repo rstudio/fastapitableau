@@ -108,7 +108,7 @@ def paste(first: List[str], second: List[str]) -> List[str]:
 
 This metadata will appear in the documentation for Tableau users.
 
-## Deploying extensions to RStudio Connect.
+## Deploying extensions to RStudio Connect
 
 You can deploy FastAPI Tableau extensions to RStudio Connect with `rsconnect-python`. Detailed documentation can be found [over there](https://github.com/rstudio/rsconnect-python#deploying-python-content-to-rstudio-connect).
 
@@ -120,6 +120,14 @@ rsconnect deploy fastapi \
 ```
 
 rsconnect-python assumes that your API is the only Python in its directory. For best results, specify your API's dependencies in a `requirements.txt` file in the same directory. See more information [here](https://github.com/rstudio/rsconnect-python#package-dependencies-1).
+
+### Using self-signed certificates
+
+When using self-signed certificates with FastAPI Tableau, you must make Python aware of the path to the certificate.
+
+Set the `REQUESTS_CA_BUNDLE` environment variable to the path to your certificate file. This variable is used by the underlying Requests library, and is documented [here](https://docs.python-requests.org/en/master/user/advanced/#ssl-cert-verification).
+
+In RStudio Connect, set the environment variable [in the Vars tab of the Content Settings Panel](https://docs.rstudio.com/connect/user/content-settings/#content-vars). Note that applications running on RStudio Connect cannot access the `/etc` directory, so the certificate must be in a different location, such as `/opt/python`.
 
 ## Calling an extension endpoint in Tableau
 
