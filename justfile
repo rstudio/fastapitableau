@@ -34,7 +34,11 @@ cov-report:
 clean-dist:
 	rm -r dist
 
-build:
+build clean="true":
+	#!/usr/bin/env sh
+	if [ {{clean}} = "true" ]; then
+		just clean-dist
+	fi
 	pipenv run python -m build
 
 testpypi-upload:

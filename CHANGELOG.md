@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2022-02-23
+
+- Changed warning message upon HTTPS failure, with new directions for self-signed certificate use.
+
 ## [1.1.0] - 2021-11-03
 
 ### Added
@@ -25,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The initial release, with support for calling modified FastAPI applications from Tableau workbooks.
 
-[Unreleased]: https://github.com/rstudio/fastapitableau/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/rstudio/fastapitableau/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/rstudio/fastapitableau/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/rstudio/fastapitableau/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/rstudio/fastapitableau/releases/tag/v1.0.0
