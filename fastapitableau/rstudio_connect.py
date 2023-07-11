@@ -82,7 +82,7 @@ def warning_message() -> Optional[str]:  # noqa: C901
         # Call RStudio Connect API to get server settings
         use_http = environ.get("FASTAPITABLEAU_USE_HTTP", "False").title() == "True"
         if use_http:
-            connect_server = urlparse(connect_server)._replace(scheme="http").geturl()  # type: ignore[arg-type]
+            connect_server = urlparse(connect_server)._replace(scheme="http").geturl()  # type: ignore[arg-type, assignment]
         settings_url = str(connect_server) + "__api__/server_settings"
         headers = {"Authorization": "Key " + str(connect_api_key)}
         response = requests.get(settings_url, headers=headers, verify=not use_http)

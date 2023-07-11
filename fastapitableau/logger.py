@@ -24,7 +24,9 @@ class ScopeAdapter(logging.LoggerAdapter):
             return prefix + msg, kwargs
 
 
-def get_correlation_id(scope: Scope = None, headers: Headers = None) -> Optional[str]:
+def get_correlation_id(
+    scope: Optional[Scope] = None, headers: Optional[Headers] = None
+) -> Optional[str]:
     headers = Headers(scope=scope, headers=headers)
     correlation_id_keys = ["x-rs-correlation-id", "x-correlation-id"]
     for key in correlation_id_keys:

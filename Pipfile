@@ -4,14 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = "*"
-uvicorn = {extras = ["standard"], version = "*"}
 fastapitableau = {editable = true, path = "."}
-aiofiles = "*"
-commonmark = "*"
-requests = "*"
 
 [dev-packages]
+uvicorn = {extras = ["standard"], version = "*"}
 black = "*"
 pytest = "*"
 flake8 = "*"
@@ -28,6 +24,7 @@ twine = "*"
 build = "*"
 mkdocs-material = "*"
 pytest-asyncio = "*"
+httpx = "*"
 
 [pipenv]
 allow_prereleases = true

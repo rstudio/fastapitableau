@@ -14,6 +14,7 @@ paste_body_tableau = {
     "data": {"_arg1": ["A", "B", "C"], "_arg2": ["D", "E", "F"]},
 }
 
+
 # In some of the tests, the "script" arg will differ from the actual path, but
 # that won't matter.
 @pytest.mark.parametrize(

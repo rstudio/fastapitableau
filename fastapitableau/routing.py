@@ -69,7 +69,7 @@ class TableauRoute(APIRoute):
         return custom_route_handler
 
     async def ensure_request_body(
-        self, body: Dict, scope: MutableMapping = None
+        self, body: Dict, scope: Optional[MutableMapping] = None
     ) -> Dict:
         # Here, we only want to operate on Tableau requests. We have a few options.
         # 1. Duck typing, which is what the main branch does right now. It checks to see if this a dict and contains the keys "script" and "data".
