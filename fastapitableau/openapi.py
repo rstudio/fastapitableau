@@ -16,7 +16,6 @@ def rewrite_tableau_openapi(
         rewrite_paths = list(openapi["paths"].keys())
 
     for path_name in rewrite_paths:
-
         path = openapi["paths"][path_name]
         request_body = path.get("post").get("requestBody")
 
@@ -96,7 +95,6 @@ def get_swagger_ui_html(
     swagger_favicon_url: str = "https://fastapi.tiangolo.com/img/favicon.png",
     home_url: str,
 ) -> HTMLResponse:
-
     html = f"""
 <!DOCTYPE html>
     <html>
