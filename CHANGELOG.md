@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- FastAPI-Tableau now requires FastAPI <= 0.88.0 to avoid compatibility issues.
+
 ## [1.1.1] - 2022-02-23
+
+### Changed
 
 - Changed warning message upon HTTPS failure, with new directions for self-signed certificate use.
 
