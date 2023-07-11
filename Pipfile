@@ -24,6 +24,7 @@ twine = "*"
 build = "*"
 mkdocs-material = "*"
 pytest-asyncio = "*"
+httpx = "*"
 
 [pipenv]
 allow_prereleases = true
