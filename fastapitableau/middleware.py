@@ -9,7 +9,9 @@ from fastapitableau.utils import event_from_receive
 
 class TableauExtensionMiddleware:
     """
-    Rewrites requests sent to the "/evaluate" endpoint. To do this, it receives the triggering event and uses the body of the request, then passes on the event in an awaitable object.
+    Rewrite the path of requests sent from Tableau. Tableau sends all its
+    requests to the "/evaluate" endpoint. We unpack them and rewrite the path to
+    the contents of the "script" key in the request body.
     """
 
     def __init__(self, app):

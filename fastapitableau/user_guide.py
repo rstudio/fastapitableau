@@ -3,6 +3,8 @@ from inspect import Signature, signature
 from typing import Any, List, Optional
 from urllib.parse import urljoin, urlparse
 
+from pydantic._internal._repr import display_as_type
+
 from fastapitableau.utils import remove_prefix
 
 
@@ -17,7 +19,7 @@ class ParamInfo:
 
     def __init__(self, param):
         self.name = param.name
-        self.type = param._type_display()
+        self.type = display_as_type(param.type_)
         self.tableau_type = tableau_name_for_python_type(self.type)
         self.required = param.required
         self.default = param.default
