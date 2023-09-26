@@ -127,7 +127,7 @@ When using self-signed certificates with FastAPI Tableau, you must make Python a
 
 Set the `REQUESTS_CA_BUNDLE` environment variable to the path to your certificate file. This variable is used by the underlying Requests library, and is documented [here](https://docs.python-requests.org/en/master/user/advanced/#ssl-cert-verification).
 
-In RStudio Connect, set the environment variable [in the Vars tab of the Content Settings Panel](https://docs.rstudio.com/connect/user/content-settings/#content-vars). Note that applications running on RStudio Connect cannot access the `/etc` directory, so the certificate must be in a different location, such as `/opt/python`.
+In RStudio Connect, set the environment variable [in the Vars tab of the Content Settings Panel](https://docs.posit.co/connect/user/content-settings/#content-vars). Note that applications running on RStudio Connect cannot access the `/etc` directory, so the certificate must be in a different location, such as `/opt/python`.
 
 ## Calling an extension endpoint in Tableau
 

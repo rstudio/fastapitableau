@@ -1,6 +1,8 @@
+import json
 from copy import deepcopy
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
+from fastapi.encoders import jsonable_encoder
 from starlette.responses import HTMLResponse
 
 from fastapitableau.utils import replace_dict_keys
@@ -86,27 +88,44 @@ def rewrite_tableau_openapi(
 
 
 # Vendored and modified from FastAPI.
+swagger_ui_default_parameters = {
+    "dom_id": "#swagger-ui",
+    "layout": "BaseLayout",
+    "deepLinking": True,
+    "showExtensions": True,
+    "showCommonExtensions": True,
+}
+
+
 def get_swagger_ui_html(
     *,
     openapi_url: str,
     title: str,
-    swagger_js_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui-bundle.js",
-    swagger_css_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css",
+    swagger_js_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js",
+    swagger_css_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css",
     swagger_favicon_url: str = "https://fastapi.tiangolo.com/img/favicon.png",
     home_url: str,
+    swagger_ui_parameters: Optional[Dict[str, Any]] = None,
 ) -> HTMLResponse:
+    current_swagger_ui_parameters = swagger_ui_default_parameters.copy()
+    if swagger_ui_parameters:
+        current_swagger_ui_parameters.update(swagger_ui_parameters)
+
     html = f"""
-<!DOCTYPE html>
+    <!DOCTYPE html>
     <html>
     <head>
     <link type="text/css" rel="stylesheet" href="{swagger_css_url}">
     <link rel="shortcut icon" href="{swagger_favicon_url}">
+
+    <!-- BEGIN: Link to our stylesheet -->
     <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <!-- END: Link to our stylesheet -->
+
     <title>{title}</title>
     </head>
     <body>
-
-    <!-- BEGIN: Insert our header into the documentation -->
+       <!-- BEGIN: Insert our header into the documentation -->
     <header class="md-header" data-md-component="header" data-md-state="shadow">
         <nav class="md-header__inner md-grid" aria-label="Header">
             <a href="{home_url}" class="nav-bar">
@@ -146,16 +165,14 @@ def get_swagger_ui_html(
         url: '{openapi_url}',
     """
 
+    for key, value in current_swagger_ui_parameters.items():
+        html += f"{json.dumps(key)}: {json.dumps(jsonable_encoder(value))},\n"
+
     html += """
-        dom_id: '#swagger-ui',
-        presets: [
+    presets: [
         SwaggerUIBundle.presets.apis,
         SwaggerUIBundle.SwaggerUIStandalonePreset
         ],
-        layout: "BaseLayout",
-        deepLinking: true,
-        showExtensions: true,
-        showCommonExtensions: true
     })"""
 
     html += """

@@ -4,6 +4,7 @@ from typing import Any, List, Optional
 from urllib.parse import urljoin, urlparse
 
 from pydantic._internal._repr import display_as_type
+from pydantic_core import PydanticUndefined
 
 from fastapitableau.utils import remove_prefix
 
@@ -28,7 +29,7 @@ class ParamInfo:
     def _details(self) -> str:
         parts = []
         parts.append("required") if self.required else parts.append("optional")
-        if self.default is not None:
+        if self.default is not PydanticUndefined:
             parts.append(f"default = {self.default}")
         return "; ".join(parts).capitalize()
 
