@@ -80,7 +80,6 @@ def weird_type(text: List[Dict]) -> List[str]:
     summary="Fails and raises an HTTP Exception",
 )
 async def variadic(request: Request) -> Dict:
-    # pdb.set_trace()
     result = await request.json()
     return result
 

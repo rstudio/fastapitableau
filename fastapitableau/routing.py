@@ -43,8 +43,6 @@ class TableauRoute(APIRoute):
     @property
     def body_schema(self):
         if not self._body_schema:
-            # TODO: There used to be a third argument returned from this,
-            # `nested_models`, that we didn't use. What was it?
             f_schema, f_definitions = self.get_body_field_schema()
 
             if "$ref" in f_schema.keys():
@@ -95,7 +93,6 @@ class TableauRoute(APIRoute):
         Rewrites requests that look like they come from Tableau into ordinary
         requests. Leave other requests unchanged.
         """
-        # pdb.set_trace()
         body_will_validate = await self.body_will_validate(body)
         if body_will_validate:
             _body = body
