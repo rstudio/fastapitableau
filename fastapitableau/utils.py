@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional, TypeVar
 
 from fastapi import Request
 from starlette.types import Receive
@@ -41,3 +41,12 @@ async def event_from_receive(receive: Receive) -> Dict:
     }
 
     return event
+
+
+T = TypeVar("T")
+
+
+def unwrap_optional(opt: Optional[T]) -> T:
+    if opt is None:
+        raise ValueError("Could not unwrap optional value")
+    return opt
