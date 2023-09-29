@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Internal updates to support newer FastAPI and Pydantic 2.0. FastAPI-Tableau is
+  pinned to FastAPI 0.103.1.
+
 ## [1.1.2] - 2023-07-11
 
 ### Fixed
@@ -17,25 +20,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Changed warning message upon HTTPS failure, with new directions for self-signed certificate use.
+- Changed warning message upon HTTPS failure, with new directions for
+  self-signed certificate use.
 
 ## [1.1.0] - 2021-11-03
 
 ### Added
 
 - This changelog.
-- Support for using Pydantic schemas in endpoints that receive input from Tableau.
-- Added support for verbose debug logging when the environment variable `FASTAPITABLEAU_LOG_LEVEL` is set to `DEBUG`.
+- Support for using Pydantic schemas in endpoints that receive input from
+  Tableau.
+- Added support for verbose debug logging when the environment variable
+  `FASTAPITABLEAU_LOG_LEVEL` is set to `DEBUG`.
 
 ### Fixed
 
-- Package metadata incorrectly said that the license was "Proprietary", but the license is actually MIT.
+- Package metadata incorrectly said that the license was "Proprietary", but the
+  license is actually MIT.
 
 ## [1.0.0] - 2021-09-29
 
 ### Added
 
-- The initial release, with support for calling modified FastAPI applications from Tableau workbooks.
+- The initial release, with support for calling modified FastAPI applications
+  from Tableau workbooks.
 
 [Unreleased]: https://github.com/rstudio/fastapitableau/compare/v1.1.2...HEAD
 [1.1.2]: https://github.com/rstudio/fastapitableau/compare/v1.1.1...v1.1.2
