@@ -35,7 +35,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install --upgrade pipenv wheel
 
-    - name: Install dependencies and latest FastAPI
+    - name: Install dependencies, upgrade FastAPI
       run: |
         pipenv install --dev --skip-lock
         pip install --upgrade fastapi
