@@ -3,7 +3,12 @@ from inspect import Signature, signature
 from typing import Any, List, Optional
 from urllib.parse import urljoin, urlparse
 
-from fastapitableau.utils import remove_prefix
+from fastapi._compat import ModelField
+from pydantic._internal._repr import display_as_type
+from pydantic_core import PydanticUndefined
+
+from fastapitableau.routing import TableauRoute
+from fastapitableau.utils import remove_prefix, unwrap_optional
 
 
 @dataclass
@@ -15,9 +20,9 @@ class ParamInfo:
     default: Any
     details: str
 
-    def __init__(self, param):
+    def __init__(self, param: ModelField):
         self.name = param.name
-        self.type = param._type_display()
+        self.type = display_as_type(param.type_)
         self.tableau_type = tableau_name_for_python_type(self.type)
         self.required = param.required
         self.default = param.default
@@ -26,7 +31,7 @@ class ParamInfo:
     def _details(self) -> str:
         parts = []
         parts.append("required") if self.required else parts.append("optional")
-        if self.default is not None:
+        if self.default is not PydanticUndefined:
             parts.append(f"default = {self.default}")
         return "; ".join(parts).capitalize()
 
@@ -36,8 +41,8 @@ class ReturnInfo:
     type: str
     desc: str
 
-    def __init__(self, route):
-        sig = signature(route.dependant.call)
+    def __init__(self, route: TableauRoute):
+        sig = signature(unwrap_optional(route.dependant.call))
         return_annotation = (
             sig.return_annotation
             if sig.return_annotation is not Signature.empty
@@ -62,14 +67,14 @@ class RouteInfo:
     return_info: ReturnInfo
     name: str
 
-    def __init__(self, route, app_base_url: Optional[str]):
+    def __init__(self, route: TableauRoute, app_base_url: Optional[str] = None):
         if app_base_url:
             # Displays the path relative to the Connect domain, for Tableau purposes.
             self.path = urljoin(urlparse(app_base_url).path, route.path.strip("/"))
         else:
             self.path = route.path
         self.description = route.description
-        self.summary = route.summary
+        self.summary = route.summary if route.summary is not None else ""
         self.body_params = [ParamInfo(param) for param in route.dependant.body_params]
         self.query_params = [ParamInfo(param) for param in route.dependant.query_params]
         self.return_info = ReturnInfo(route)

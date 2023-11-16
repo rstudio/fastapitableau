@@ -79,7 +79,7 @@ def weird_type(text: List[Dict]) -> List[str]:
     "/variadic",
     summary="Fails and raises an HTTP Exception",
 )
-async def variadic(request: Request) -> Dict[str, List[str]]:
+async def variadic(request: Request) -> Dict:
     result = await request.json()
     return result
 
