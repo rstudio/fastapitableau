@@ -1,4 +1,4 @@
-name: CI
+name: Test Latest FastAPI
 
 on:
   push:
@@ -6,14 +6,17 @@ on:
     tags: ['*']
   pull_request:
     branches: [main]
+  schedule:
+    - cron: '0 13 * * 1' # Every Monday at 13:00 UTC
 
 jobs:
   test:
+
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10", 3.11, 3.12]
+        python-version: [3.7, 3.8, 3.9, "3.10", 3.11]
 
     steps:
     - uses: actions/checkout@v2
@@ -32,30 +35,11 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install --upgrade pipenv wheel
 
-    - name: Install dependencies
+    - name: Install dependencies, upgrade FastAPI
       run: |
         pipenv install --dev --skip-lock
-
-    - name: Lint
-      if: matrix.python-version == 3.9
-      run: just lint
+        pip install --upgrade fastapi
+        pip list
 
     - name: Test
       run: just test
-
-    - name: Generate coverage report
-      if: matrix.python-version == 3.9
-      run: |
-        pipenv run pytest --cov=./ --cov-report=xml
-
-    - name: Upload coverage to Codecov
-      if: matrix.python-version == 3.9
-      uses: codecov/codecov-action@v2
-      with:
-        fail_ci_if_error: true
-        files: ./coverage.xml
-        flags: unittests
-
-    - name: Publish MkDocs
-      if: github.ref == 'refs/heads/main' && matrix.python-version == 3.9
-      run: pipenv run mkdocs gh-deploy --force
