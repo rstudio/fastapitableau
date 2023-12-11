@@ -1,0 +1,680 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>FastAPI Tableau</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fastapi-tableau" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="FastAPI Tableau" class="md-header__button md-logo" aria-label="FastAPI Tableau" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastAPI Tableau
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rstudio/fastapitableau" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rstudio/fastapitableau
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="FastAPI Tableau" class="md-nav__button md-logo" aria-label="FastAPI Tableau" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastAPI Tableau
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rstudio/fastapitableau" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rstudio/fastapitableau
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-fastapi-tableau-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      A simple FastAPI Tableau extension
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A simple FastAPI Tableau extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-tableau-extensions-support-a-limited-set-of-data-model-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      FastAPI Tableau extensions support a limited set of data model features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-descriptive-metadata-for-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional descriptive metadata for endpoints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-extensions-to-rstudio-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying extensions to RStudio Connect
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying extensions to RStudio Connect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-self-signed-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using self-signed certificates
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-an-extension-endpoint-in-tableau" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calling an extension endpoint in Tableau
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Calling an extension endpoint in Tableau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-with-tableau-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Tableau data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug logging
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-fastapi-tableau-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      A simple FastAPI Tableau extension
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A simple FastAPI Tableau extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-tableau-extensions-support-a-limited-set-of-data-model-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      FastAPI Tableau extensions support a limited set of data model features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-descriptive-metadata-for-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional descriptive metadata for endpoints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-extensions-to-rstudio-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying extensions to RStudio Connect
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying extensions to RStudio Connect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-self-signed-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using self-signed certificates
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-an-extension-endpoint-in-tableau" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calling an extension endpoint in Tableau
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Calling an extension endpoint in Tableau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-with-tableau-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Tableau data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug logging
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<p align="center">
+  <img width="640px" src="img/fastapi-tableau.png" alt='FastAPI Tableau'>
+</p>
+
+<p align="center">
+<a href="https://codecov.io/gh/rstudio/fastapitableau" target="_blank">
+    <img src="https://codecov.io/gh/rstudio/fastapitableau/branch/main/graph/badge.svg?token=E206DENI3A" alt="Coverage">
+</a>
+<a href="https://pypi.org/project/fastapitableau" target="_blank">
+    <img src="https://img.shields.io/pypi/v/fastapitableau?color=%2334D058&label=pypi%20package" alt="Package version">
+</a>
+</p>
+
+<h1 id="fastapi-tableau">FastAPI Tableau</h1>
+<hr />
+<p><strong>Documentation</strong>: <a href="https://rstudio.github.io/fastapitableau">https://rstudio.github.io/fastapitableau</a></p>
+<p><strong>Source Code</strong>: <a href="https://github.com/rstudio/fastapitableau">https://github.com/rstudio/fastapitableau</a></p>
+<hr />
+<p>FastAPI Tableau lets you call external Python code from Tableau workbooks via <a href="https://tableau.github.io/analytics-extensions-api/">Tableau Analytics
+Extensions</a>. To do this, you write an API using <a href="https://fastapi.tiangolo.com">FastAPI</a>, with some minor modifications. If you aren't already familiar with FastAPI, we suggest you start with their <a href="https://fastapi.tiangolo.com/tutorial/">tutorial</a>. </p>
+<p>The main change required for your API to be callable from Tableau is to replace the <code>FastAPI</code> app class with <code>FastAPITableau</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Base FastAPI</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># FastAPI Tableau</span>
+<span class="kn">from</span> <span class="nn">fastapitableau</span> <span class="kn">import</span> <span class="n">FastAPITableau</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPITableau</span><span class="p">()</span>
+</code></pre></div>
+<p>When you do this, FastAPI Tableau will reroute and transform requests from Tableau, which arrive at the <code>/evaluate</code> endpoint, to the endpoints you define in your app. It will also show documentation for Tableau users at the root of your API, with copy-and-paste code samples for Tableau calls.</p>
+<p><strong>Before you write an extension with FastAPI Tableau, you should be familiar with <a href="https://fastapi.tiangolo.com">FastAPI</a>. The <a href="https://fastapi.tiangolo.com/tutorial/">Tutorial</a> is a great place to start.</strong> You should also take a look at the limitations of FastAPI Tableau extensions, described <a href="#tableau-fastapi-supports-a-subset-of-fastapis-features">below</a>.</p>
+<h2 id="a-simple-fastapi-tableau-extension">A simple FastAPI Tableau extension</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">fastapitableau</span> <span class="kn">import</span> <span class="n">FastAPITableau</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPITableau</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Simple Example&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A *simple* example FastAPITableau app.&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/capitalize&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">capitalize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="n">capitalized</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">capitalized</span>
+</code></pre></div>
+<p>If you put this code in a file named <code>simple.py</code> in your terminal's working directory, you can serve it locally using <a href="https://www.uvicorn.org">Uvicorn</a>, by invoking <code>uvicorn simple:app --reload</code>.</p>
+<h3 id="fastapi-tableau-extensions-support-a-limited-set-of-data-model-features">FastAPI Tableau extensions support a limited set of data model features</h3>
+<p>FastAPI Tableau extensions have a few constraints compared to standard FastAPI apps. Some of these are due to the ways that Tableau sends data. We'll describe known limitations here, and how to work within them.</p>
+<p><strong>All parameters that receive data from Tableau must be <a href="https://fastapi.tiangolo.com/tutorial/body-nested-models/?h=list#list-fields-with-type-parameter">list fields</a>.</strong> Tableau sends its data in JSON lists in the request body, which FastAPI converts to equivalent Python types. Compatible types are <code>List[str]</code>, <code>List[float]</code>, <code>List[int]</code>, and <code>List[bool]</code>. You can define these parameters as arguments to an endpoint function, or as fields in a Pydantic model.</p>
+<p><strong>Your endpoints must also return data in a compatible list types, and the data returned must be the same length as the inputs received.</strong> This requirement is not enforced by FastAPI Tableau, but Tableau maps the data sent back by an extension into a table column.</p>
+<p><strong>You can use query parameters in your functions by declaring singular (non-<code>List</code>) arguments.</strong> FastAPI assumes that any <code>bool</code>, <code>float</code>, <code>int</code>, or <code>str</code> variables are query parameters. You can use these in the <code>script</code> argument when calling the API from Tableau.</p>
+<p>Putting this all together, you can have as many list and singular parameters as you want, declared in the function definition. List parameters will come from Tableau data objects, and singular parameters can be set in the Tableau calculation.</p>
+<p>For example, if you wanted an endpoint to multiply data by a user-provided number, you could define it like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/multiply&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">multiplier</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">multiplier</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
+<p>FastAPI Tableau will automatically generate Tableau usage examples for your endpoints, using your type annotations, so providing complete type annotations will make it easier to use your APIs from Tableau.</p>
+<h3 id="additional-descriptive-metadata-for-endpoints">Additional descriptive metadata for endpoints</h3>
+<p>You can add additional metadata to endpoints as you would with a regular FastAPI app, in the endpoint decorator and the docstring.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;/paste&quot;</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Parallel concatenation on two lists of strings&quot;</span><span class="p">,</span>
+    <span class="n">response_description</span><span class="o">=</span><span class="s2">&quot;A list of concatenated strings&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">paste</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">second</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given two lists of strings, iterate over them, concatenating parallel items.</span>
+
+<span class="sd">    - **first**: the first list of strings</span>
+<span class="sd">    - **second**: the second list of strings</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
+<p>This metadata will appear in the documentation for Tableau users.</p>
+<h2 id="deploying-extensions-to-rstudio-connect">Deploying extensions to RStudio Connect</h2>
+<p>You can deploy FastAPI Tableau extensions to RStudio Connect with <code>rsconnect-python</code>. Detailed documentation can be found <a href="https://github.com/rstudio/rsconnect-python#deploying-python-content-to-rstudio-connect">over there</a>.</p>
+<div class="highlight"><pre><span></span><code>rsconnect<span class="w"> </span>deploy<span class="w"> </span>fastapi<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--server<span class="w"> </span>https://connect.example.org:3939<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--api-key<span class="w"> </span>my-api-key<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>my_api_directory/
+</code></pre></div>
+<p>rsconnect-python assumes that your API is the only Python in its directory. For best results, specify your API's dependencies in a <code>requirements.txt</code> file in the same directory. See more information <a href="https://github.com/rstudio/rsconnect-python#package-dependencies-1">here</a>.</p>
+<h3 id="using-self-signed-certificates">Using self-signed certificates</h3>
+<p>When using self-signed certificates with FastAPI Tableau, you must make Python aware of the path to the certificate.</p>
+<p>Set the <code>REQUESTS_CA_BUNDLE</code> environment variable to the path to your certificate file. This variable is used by the underlying Requests library, and is documented <a href="https://docs.python-requests.org/en/master/user/advanced/#ssl-cert-verification">here</a>.</p>
+<p>In RStudio Connect, set the environment variable <a href="https://docs.posit.co/connect/user/content-settings/#content-vars">in the Vars tab of the Content Settings Panel</a>. Note that applications running on RStudio Connect cannot access the <code>/etc</code> directory, so the certificate must be in a different location, such as <code>/opt/python</code>.</p>
+<h2 id="calling-an-extension-endpoint-in-tableau">Calling an extension endpoint in Tableau</h2>
+<p>You can copy and paste the usage example (the <code>SCRIPT_*</code> command) into a calculated field in Tableau (it generates the correct URL), and replace the argument placeholders with actual values from the Tableau workbook.</p>
+<h3 id="working-with-tableau-data">Working with Tableau data</h3>
+<p>We've found that a few practices in Tableau ensure that the data you pass to a Tableau extension is sent correctly.</p>
+<ul>
+<li>You must turn off "Aggregate Measures" under the "Analysis" menu for Tableau to pass the correct values to the extension. If this setting is on, Tableau will send aggregated data to the extension, which may cause inaccuracies in computations.</li>
+<li>With this value off, calculated fields don't allow you to pass raw values directly to an extension. Those values must be wrapped in an aggregating function. Since we've turned "Aggregate Measures" off, these functions won't actually aggregate the data. We've had success using <code>ATTR([VALUE_NAME])</code>.</li>
+</ul>
+<h2 id="debug-logging">Debug logging</h2>
+<p>To enable verbose debug logging, set the environment variable <code>FASTAPITABLEAU_LOG_LEVEL</code> to <code>DEBUG</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.top"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
