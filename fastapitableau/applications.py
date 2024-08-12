@@ -32,9 +32,9 @@ class FastAPITableau(FastAPI):
 
         # Add exception handlers
         self.exception_handlers[HTTPException] = tableau_http_exception_handler
-        self.exception_handlers[
-            RequestValidationError
-        ] = tableau_request_validation_exception_handler
+        self.exception_handlers[RequestValidationError] = (
+            tableau_request_validation_exception_handler
+        )
         self.exception_handlers[Exception] = tableau_general_exception_handler
         self.middleware_stack = self.build_middleware_stack()
 
