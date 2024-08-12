@@ -2,7 +2,7 @@ name: Test Latest FastAPI
 
 on:
   push:
-    branches: [main]
+    branches: [main, tdstein]
     tags: ['*']
   pull_request:
     branches: [main]
