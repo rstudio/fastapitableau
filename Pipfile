@@ -7,6 +7,7 @@ name = "pypi"
 fastapitableau = {editable = true, path = "."}
 
 [dev-packages]
+fastapi = "==0.110.3"
 uvicorn = {extras = ["standard"], version = "*"}
 black = "*"
 pytest = "*"
@@ -24,7 +25,7 @@ twine = "*"
 build = "*"
 mkdocs-material = "*"
 pytest-asyncio = "*"
-httpx = "*"
+httpx = "==0.24.1"
 
 [pipenv]
 allow_prereleases = true
