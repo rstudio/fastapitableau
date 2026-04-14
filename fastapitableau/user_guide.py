@@ -3,7 +3,6 @@ from inspect import Signature, signature
 from typing import Any, List, Optional
 from urllib.parse import urljoin, urlparse
 
-from fastapi._compat import ModelField
 from pydantic._internal._repr import display_as_type
 from pydantic_core import PydanticUndefined
 
@@ -20,11 +19,16 @@ class ParamInfo:
     default: Any
     details: str
 
-    def __init__(self, param: ModelField):
+    def __init__(self, param: Any):
         self.name = param.name
-        self.type = display_as_type(param.type_)
+        field_type = getattr(param, "type_", None) or param.field_info.annotation
+        self.type = display_as_type(field_type)
         self.tableau_type = tableau_name_for_python_type(self.type)
-        self.required = param.required
+        self.required = (
+            param.required
+            if hasattr(param, "required")
+            else param.field_info.is_required()
+        )
         self.default = param.default
         self.details = self._details()
 

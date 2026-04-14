@@ -2,51 +2,39 @@ import json
 from typing import Any, Callable, Dict, MutableMapping, Optional
 
 from fastapi import Request, Response
-from fastapi._compat import (
-    GenerateJsonSchema,
-    get_compat_model_name_map,
-    get_definitions,
-    get_schema_from_model_field,
-)
-from fastapi.dependencies.utils import request_body_to_args
 from fastapi.exceptions import RequestValidationError
-from fastapi.openapi.utils import get_fields_from_routes
 from fastapi.routing import APIRoute
+from pydantic import TypeAdapter, ValidationError
 
 from fastapitableau.logger import logger
-from fastapitableau.utils import event_from_receive, remove_prefix, replace_dict_keys
+from fastapitableau.utils import event_from_receive, replace_dict_keys
 
 
 class TableauRoute(APIRoute):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._body_schema: Optional[Dict[str, Any]] = None
+        self._body_type_adapter: Optional[TypeAdapter] = None
+        if self.body_field is not None:
+            if hasattr(self.body_field, "_type_adapter"):
+                self._body_type_adapter = self.body_field._type_adapter
+            else:
+                self._body_type_adapter = TypeAdapter(self.body_field.type_)
 
     def get_body_field_schema(self):
-        # schema, definitions, nested models
-        route_fields = get_fields_from_routes([self])
-        route_model_name_map = get_compat_model_name_map(route_fields)
-        schema_generator = GenerateJsonSchema()
-        field_mapping, definitions = get_definitions(
-            fields=route_fields,
-            schema_generator=schema_generator,
-            model_name_map=route_model_name_map,
-        )
-        body_field_schema = get_schema_from_model_field(
-            field=self.body_field,
-            schema_generator=GenerateJsonSchema,
-            model_name_map=route_model_name_map,
-            field_mapping=field_mapping,
-        )
-        return body_field_schema, definitions
+        if self._body_type_adapter is None:
+            return {}, {}
+        schema = self._body_type_adapter.json_schema()
+        definitions = schema.pop("$defs", {})
+        return schema, definitions
 
     @property
     def body_schema(self):
         if not self._body_schema:
             f_schema, f_definitions = self.get_body_field_schema()
 
-            if "$ref" in f_schema.keys():
-                ref = remove_prefix(f_schema["$ref"], "#/$defs/")
+            if "$ref" in f_schema:
+                ref = f_schema["$ref"].removeprefix("#/$defs/")
                 definition = f_definitions[ref]
             else:
                 definition = f_schema
@@ -93,7 +81,7 @@ class TableauRoute(APIRoute):
         Rewrites requests that look like they come from Tableau into ordinary
         requests. Leave other requests unchanged.
         """
-        body_will_validate = await self.body_will_validate(body)
+        body_will_validate = self.body_will_validate(body)
         if body_will_validate:
             _body = body
             logger.debug(
@@ -139,9 +127,15 @@ class TableauRoute(APIRoute):
             )
         return _body
 
-    async def body_will_validate(self, body: Dict[str, Any]):
+    def body_will_validate(self, body: Any) -> bool:
         """
-        This function tries to process the request body using FastAPI's own function, and returns False if it fails to process. It's potentially expensive, but could be useful as a stricter heuristic for deciding whether to rewrite the request body.
+        Check whether the body will pass validation against the route's expected
+        type. Returns True if valid (no rewriting needed), False otherwise.
         """
-        values, errors = await request_body_to_args(self.dependant.body_params, body)
-        return False if errors else True
+        if self._body_type_adapter is None:
+            return True
+        try:
+            self._body_type_adapter.validate_python(body)
+            return True
+        except ValidationError:
+            return False
