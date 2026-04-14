@@ -67,14 +67,14 @@ def test_failure():
 
 def test_single_arg_endpoint_tableau():
     data = make_data("/capitalize", [["dog", "cat", "bunny"]])
-    response = client.post("/evaluate", data=data)
+    response = client.post("/evaluate", json=json.loads(data))
     assert response.status_code == 200
     assert response.json() == ["DOG", "CAT", "BUNNY"]
 
 
 def test_multi_arg_endpoint_tableau():
     data = make_data("/paste", [["big", "small", "fluffy"], ["dog", "cat", "bunny"]])
-    response = client.post("/evaluate", data=data)
+    response = client.post("/evaluate", json=json.loads(data))
     assert response.status_code == 200
     assert response.json() == [
         "big dog",
@@ -85,7 +85,7 @@ def test_multi_arg_endpoint_tableau():
 
 def test_variadic_endpoint():
     data = make_data("/variadic", [["big", "small", "fluffy"], ["dog", "cat", "bunny"]])
-    response = client.post("/evaluate", data=data)
+    response = client.post("/evaluate", json=json.loads(data))
     assert response.status_code == 200
     assert response.json() == json.loads(data)
 
