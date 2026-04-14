@@ -19,7 +19,13 @@ class TableauExtensionMiddleware:
 
     async def __call__(self, scope, receive, send) -> None:
         logger.debug("Received request with scope: %s", scope, extra={"scope": scope})
-        if scope["type"] == "http" and scope["path"] == "/evaluate":
+        # Strip root_path (e.g. /content/<guid>) to get the app-relative path,
+        # matching how FastAPI/Starlette resolve routes behind a proxy.
+        path = scope.get("path", "")
+        root_path = scope.get("root_path", "")
+        if root_path and path.startswith(root_path):
+            path = path[len(root_path) :]
+        if scope["type"] == "http" and path == "/evaluate":
             _scope, _receive = await self.rewrite_scope_path(scope, receive)
             await self.app(_scope, _receive, send)
         else:
@@ -48,10 +54,14 @@ class TableauExtensionMiddleware:
             extra={"scope": scope},
         )
 
-        scope["path"] = target_path
-        scope["raw_path"] = bytes(target_path, encoding="utf-8")
+        # Shallow copy is sufficient here because we only replace immutable
+        # values (str, bytes). Do not mutate nested structures (e.g. headers,
+        # state) on new_scope — they are shared with the original.
+        new_scope = scope.copy()
+        new_scope["path"] = target_path
+        new_scope["raw_path"] = bytes(target_path, encoding="utf-8")
 
         async def _receive():
             return event
 
-        return scope, _receive
+        return new_scope, _receive

@@ -1,10 +1,10 @@
 import os
+from importlib.resources import files
 from urllib.parse import urlparse
 
 from commonmark import commonmark  # type: ignore[import]
 from fastapi import Request
 from fastapi.routing import APIRouter
-from pkg_resources import resource_filename
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
@@ -19,7 +19,7 @@ def markdown_filter(text):
     return commonmark(text)
 
 
-templates_directory = resource_filename("fastapitableau", "templates")
+templates_directory = str(files("fastapitableau").joinpath("templates"))
 
 statics = StaticFiles(packages=["fastapitableau"])
 jinja_templates = Jinja2Templates(directory=templates_directory)
@@ -35,7 +35,7 @@ async def home(request: Request):
         "warning_message": rstudio_connect.warning_message(),
         "app_base_url": calc_app_base_url(request),
     }
-    return jinja_templates.TemplateResponse("index.html", context=context)
+    return jinja_templates.TemplateResponse(request, "index.html", context=context)
 
 
 @built_in_pages.get("/setup_tableau", include_in_schema=False)
@@ -60,7 +60,9 @@ async def setup(request: Request):
         "server_port": server_port,
         "app_base_url": calc_app_base_url(request),
     }
-    return jinja_templates.TemplateResponse("setup_tableau.html", context=context)
+    return jinja_templates.TemplateResponse(
+        request, "setup_tableau.html", context=context
+    )
 
 
 @built_in_pages.get("/tableau_usage", include_in_schema=False)
@@ -76,7 +78,9 @@ async def tableau_usage(request: Request):
         "routes_info": routes_info,
         "app_base_url": calc_app_base_url(request),
     }
-    return jinja_templates.TemplateResponse("tableau_usage.html", context=context)
+    return jinja_templates.TemplateResponse(
+        request, "tableau_usage.html", context=context
+    )
 
 
 # We're bypassing the built-in generation of the docs so we can show two different

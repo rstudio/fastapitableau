@@ -17,7 +17,6 @@ pytest-cov = "*"
 isort = "*"
 pre-commit = "*"
 ipython = "*"
-typed-ast = "*"
 types-requests = "*"
 types-setuptools = "*"
 twine = "*"
@@ -25,6 +24,3 @@ build = "*"
 mkdocs-material = "*"
 pytest-asyncio = "*"
 httpx = "*"
-
-[pipenv]
-allow_prereleases = true
