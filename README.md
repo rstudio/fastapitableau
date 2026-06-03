@@ -1,3 +1,6 @@
+> [!NOTE]
+> This package is no longer actively maintained. See the [Posit blog](https://posit.co/blog/ending-active-maintenance-fastapitableau-plumbertableau-and-shinytableau) for more information.
+
 <p align="center">
   <img width="640px" src="https://github.com/rstudio/fastapitableau/raw/main/docs/img/fastapi-tableau.png" alt='FastAPI Tableau'>
 </p>
